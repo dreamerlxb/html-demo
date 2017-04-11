@@ -1,2 +1,2 @@
 # html-demo
-简单单位HTML和js联系
+HTML和js的练习
