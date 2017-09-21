@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="cleartype" content="on">
+    <meta name="MobileOptimized" content="320">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel='stylesheet' href='index.css' />
+    <title>demo</title>
+</head>
+
+<body>
+
+    <div class='calendar' id='calendar'></div>
+
+    <script type='text/javascript' src='index.js'></script>
+</body>
+<script>
+    var table = document.getElementById("calendarTable");
+    var tds = table.getElementsByTagName('td');
+    for (var i = 0; i < tds.length; i++) {
+        addEvent(tds[i], 'click', function(e) {
+            console.log(e.target.getAttribute('data'));
+        });
+    }
+</script>
+
+</html>

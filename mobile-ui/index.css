@@ -1,0 +1,289 @@
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+
+/* 整体页面 */
+
+.page {
+    width: 100%;
+    overflow: hidden;
+}
+
+
+/* 左侧栏 */
+
+.menu {
+    z-index: 0;
+    position: absolute;
+    background: #223322;
+    height: 100%;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    width: 80% !important;
+    overflow: scroll;
+}
+
+
+/* 主干 */
+
+.panel {
+    z-index: 1;
+    position: absolute;
+    background: #ffffff;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+.page,
+.menu,
+.panel {
+    width: 100%;
+    height: 100%;
+}
+
+
+/* 主干的header */
+
+.panel>.panel-header {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    z-index: 10px;
+    height: 56px;
+    /* width: 100%; */
+    background: #f7f7f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+
+.panel>.panel-content {
+    position: absolute;
+    top: 56px;
+    bottom: 56px;
+    right: 0px;
+    /* bottom: 0px; */
+    width: 100%;
+    overflow: auto;
+}
+
+.scroll-content {
+    overflow: scroll;
+}
+
+
+/* 遮罩 */
+
+.popup-overlay {
+    z-index: 10200;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    /* z-index: 10600; */
+    visibility: hidden;
+    opacity: 0;
+    /* -webkit-transition-duration: 400ms; */
+    transition-duration: 400ms;
+}
+
+
+/* 一下都是modal相关 */
+
+.popup-modal {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 11400;
+    background: #fff;
+    box-sizing: border-box;
+    overflow: auto;
+    transition-property: transform;
+}
+
+
+/* 底部tabs */
+
+.tabs-group {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    z-index: 10px;
+    height: 56px;
+    background: #f7f7f8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.tabs-group>.tab-item {
+    height: inherit;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+
+/* actions modal */
+
+.actions-modal {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 11000;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.actions-modal-label {
+    font-size: 0.7rem;
+    line-height: 1.3;
+    min-height: 2.2rem;
+    padding: 0.4rem 0.5rem;
+    color: #5f646e;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.actions-modal-button {
+    cursor: pointer;
+    line-height: 2.15rem;
+    font-size: 1rem;
+    color: #0894ec;
+}
+
+.actions-modal>.actions-modal-group {
+    border-radius: 5px;
+}
+
+.actions-modal-group {
+    margin: 0.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+/* dialog */
+
+.modal-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 10600;
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transition-duration: 400ms;
+    transition-duration: 400ms;
+}
+
+.dialog-modal {
+    position: absolute;
+    top: 20%;
+    left: 0;
+    right: 0;
+    z-index: 11000;
+    width: 90%;
+    margin: auto;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.action-dialog {
+    top: 30% !important;
+    width: 80% !important;
+    background: white;
+    border-radius: 5px;
+    padding: 10px 0px;
+}
+
+.action-dialog>.title {
+    font-size: 0.7rem;
+    color: #5f646e;
+}
+
+.action-dialog>.action-item {
+    padding: 5px 10px 5px;
+}
+
+.action-dialog .action-btn {
+    /* width: inherit; */
+    margin: 10px 5px 0 !important;
+}
+
+input.modal-text-input {
+    box-sizing: border-box;
+    height: 1.5rem;
+    background: #fff;
+    margin: 0;
+    margin-top: 0.75rem;
+    padding: 0 0.25rem;
+    border: 1px solid #a0a0a0;
+    border-radius: 0.25rem;
+    width: 100%;
+    font-size: 0.7rem;
+    font-family: inherit;
+    display: block;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+
+/* loading */
+
+.loading {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.toast {
+    max-width: 80%;
+    z-index: 11100;
+    background: rgba(95, 46, 46, 0.6);
+    position: absolute;
+    left: 50%;
+    bottom: 20%;
+    visibility: visible;
+    opacity: 1;
+    border-radius: 16px;
+    padding: 5px 15px;
+    transform: translateX(-50%);
+}

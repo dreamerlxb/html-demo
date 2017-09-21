@@ -1,0 +1,345 @@
+<!doctype html>
+<!--[if IE 8]><html class="ie8 lt-ie10"><![endif]-->
+<!--[if IE 9]><html class="ie9 lt-ie10"><![endif]-->
+<!--[if gt IE 9]><!-->
+<html lang="en">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="cleartype" content="on">
+    <meta name="MobileOptimized" content="320">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Slideout tests</title>
+    <!-- <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css"> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"> -->
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="dialog.css">
+    <style>
+        .tabs-group .tab-item-active {
+            color: blueviolet;
+        }
+    </style>
+    <script type="text/javascript" src="jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="dialog.js"></script>
+
+    <script type="text/javascript">
+        $(function() {
+            $('#menu').data('open', false);
+            /////////////////////////////////////////////////////////////////////////////////////
+            var menuW = $('#menu').width();
+            var startMoveX = 0;
+            var endMoveX = 0;
+            $('#panel~.popup-overlay').on('touchstart', function(e) {
+                var touch = e.targetTouches[0];
+                startMoveX = touch.pageX;
+                endMoveX = 0;
+            });
+            $('#panel~.popup-overlay').on('touchmove', function(e) {
+                var touch = e.targetTouches[0]; // 第一个触摸点
+                endMoveX = touch.pageX;
+                if (endMoveX > startMoveX) { // 禁止向左滑，（只可以右滑关闭）
+                    return;
+                }
+
+                var offsetX = menuW - (startMoveX - endMoveX);
+                $('#panel').css('transform', 'translate(' + offsetX + 'px, 0px)');
+                $(this).css('transform', 'translate(' + offsetX + 'px, 0px)');
+            });
+            // 触摸结束后，如果 main视图的偏移大于屏幕的一半，则打开侧滑
+            // 如果小于，则关闭侧滑
+            $('#panel~.popup-overlay').on('touchend', function(e) {
+                console.log('touchend===1==>');
+                if (endMoveX >= startMoveX) { // 说明未移动
+                    return;
+                }
+                var offsetX = menuW - (startMoveX - endMoveX);
+                if (offsetX >= menuW / 2) {
+                    $('#panel').css('transform', 'translate(' + menuW + 'px, 0px)');
+                    $(this).css('transform', 'translate(' + menuW + 'px, 0px)');
+                } else {
+                    console.log('touchend===2==>');
+                    $('#menu').data('open', false);
+                    $('#panel').css({
+                        'transform': 'translateX(0px)',
+                        'animation': 'action_translateX_in',
+                        "animation-duration": '0.5s',
+                        'animation-timing-function': 'ease',
+                        "animation-fill-mode": "none"
+                    });
+                    $(this).css({
+                        'visibility': 'hidden',
+                        'opacity': 0,
+                        'transform': 'translateX(0px)',
+                        'animation': 'action_translateX_in',
+                        "animation-duration": '0.5s',
+                        'animation-timing-function': 'ease',
+                        "animation-fill-mode": "none"
+                    });
+                }
+            });
+
+            //==========================左滑出现侧滑 start================================
+            // // 主页面左滑，打开左侧侧滑
+            // var panelStartMoveX = 0;
+            // var panelEndMoveX = 0;
+            // $('#panel').on('touchstart', function(e) {
+            //     var touch = e.targetTouches[0];
+            //     panelStartMoveX = touch.pageX; // 记录开始move时的触点（x方向）
+            //     panelEndMoveX = 0; // 移动过程中的触点在最开始时置为0（x方向）
+            // });
+            // $('#panel').on('touchmove', function(e) {
+            //     // console.log('====touch move===');
+            //     var touch = e.targetTouches[0]; // 第一个触摸点
+            //     panelEndMoveX = touch.pageX; // 记录移动过程中的触点（x方向）
+            //     // 如果移动的触点位置 < 开始时的触点，那么说明是向右滑动
+            //     if (panelEndMoveX < panelStartMoveX) { // 禁止向右滑
+            //         return;
+            //     }
+            //     $(this).css('transform', 'translate(' + (panelEndMoveX - panelStartMoveX) + 'px, 0px)');
+            // });
+            // // 触摸结束后，如果 main视图的偏移大于屏幕的一半，则打开侧滑
+            // // 如果小于，则关闭侧滑
+            // $('#panel').on('touchend', function(e) {
+            //     // var touch = e.targetTouches[0]; // 结束时触摸点
+            //     // console.log('====touch end===');
+            //     // 如果移动的触点位置 <= 开始时的触点，那么说明是向右滑动，或者未滑动
+            //     if (panelEndMoveX <= panelStartMoveX) { // 不作处理
+            //         return;
+            //     }
+            //     var offsetX = panelEndMoveX - panelStartMoveX;
+            //     if (offsetX >= menuW / 2) {
+            //         $(this).data('open', true);
+            //         $(this).css('transform', 'translate(' + menuW + 'px, 0px)');
+            //         $('#panel~.popup-overlay').css({
+            //             visibility: 'visible',
+            //             opacity: 1,
+            //             transform: 'translate(' + menuW + 'px, 0px)'
+            //         });
+            //     } else {
+            //         $(this).data('open', false);
+            //         $(this).css('transform', 'translate(0px, 0px)');
+            //     }
+            // });
+            //==========================左滑出现侧滑 end================================
+            // 关闭Modal
+            $('.modal .close').click(function() {
+                var m = $(this).data('modal');
+                $(m).closeModal();
+            });
+
+            // 初始化 底部导航栏
+            $('#bottom-tabs-group>:first-child').addClass('tab-item-active').data('active', true);
+            $('#bottom-tabs-group .tab-item').click(function() {
+                $('#bottom-tabs-group')
+                    .children('.tab-item-active')
+                    .removeClass('tab-item-active')
+                    .removeData('active');
+
+                $(this).addClass('tab-item-active').data('active', true);
+            });
+        });
+        // 切换 左侧滑
+        function toogleSidebar() {
+            if ($('#menu').data('open')) {
+                $('#menu').data('open', false);
+                $('#panel').css('transform', 'translate(0px, 0px)');
+                $('#panel~.popup-overlay').css({
+                    visibility: 'hidden',
+                    opacity: 0,
+                    transform: 'translate(0px, 0px)'
+                });
+            } else {
+                $('#menu').data('open', true);
+                var menuW = $('#menu').width();
+                $('#panel').css('transform', 'translate(' + menuW + 'px, 0px)');
+                $('#panel~.popup-overlay').css({
+                    visibility: 'visible',
+                    opacity: 1,
+                    transform: 'translate(' + menuW + 'px, 0px)'
+                });
+            }
+        }
+
+        // 打开 action modal
+        function showActionsModal() {
+            event.stopPropagation(); //阻止事件的继续传播
+            $.actionSheets({
+                title: '请选择一种',
+                buttons: [
+                    '1213', 'dfbdfb', 'sbbefbn'
+                ],
+                selectFunc: function(index) {
+                    $.toast({
+                        label: `选中了第 ${index} 个`
+                    });
+                }
+            });
+        }
+        // 关闭 action modal
+        function closeActionsModal() {
+            $('#actionsModal1').closeModal();
+        }
+
+        function aClick() {
+            $('#modal1').showModal();
+        }
+
+        function showConfirm() {
+            // $('#actionsModal3').showModal();
+            $.confirm({
+                label: '确定要退出吗？',
+                okFunc: function() {
+                    $.alert({
+                        label: '您选择了退出'
+                    });
+                }
+            });
+        }
+
+        function showToast() {
+            $.toast({
+                label: '加载中...'
+            });
+        }
+
+        function showPrompt() {
+            $('#actionsModal4').showModal();
+        }
+
+        function showIndicator() {
+            // $('#actionsModal5').showModal();
+            $.showLoading();
+            // setTimeout(function() {
+            //     $.hideLoading();
+            // }, 2000);
+        }
+
+        function testAlert() {
+            console.log('======');
+            $.alert({
+                label: '提示信息'
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div class="page">
+        <div id="menu" data-open="false" class="menu">
+            <nav style="height:100%;width:100%;">
+                <!-- ============== 左侧侧滑内容 start ================ -->
+                <a href="https://github.com/mango/slideout">
+                    <header class="menu-header">
+                        <span class="menu-header-title">This is Side Menu</span>
+                    </header>
+                </a>
+
+
+                <!-- ============== 左侧侧滑内容 end ================ -->
+            </nav>
+        </div>
+        <!-- 主干 -->
+        <main id="panel" class="panel">
+            <header class="panel-header bar-header">
+                <span style="position:absolute;left: 0.5rem;top: 0;bottom: 0;font-size: 1rem;display:flex;align-content: center; align-items: center;justify-content: center;">
+                <a onclick="toogleSidebar()" class="btn-hamburger" >Open</a>
+              </span>
+                <h3 class="btn-hamburger js-slideout-toggle">This is main content</h3>
+                <span style="position:absolute;right:0.5rem;top: 0;bottom: 0;font-size: 1rem;display:flex;align-content: center; align-items: center;justify-content: center;">
+                  <a onclick="aClick()" class="btn-hamburger" >Menu</a>
+                </span>
+            </header>
+            <div class="panel-content">
+                <div class="scroll-content">
+                    <!-- ========== 内容（可修改）start ============ -->
+                    <section class="box">
+                        <h2 class="box-title">Test</h2>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#" onclick="showActionsModal()">Action Sheet</a></li>
+                                            <li><a href="#" onclick="testAlert()">Alert</a></li>
+                                            <li><a href="#" onclick="showConfirm();">Confirm</a></li>
+                                            <li role="separator" class="divider"></li>
+                                            <li><a href="#" onclick="showPrompt();">Prompt</a></li>
+                                            <li><a href="#" onclick="showIndicator()">showIndicator</a></li>
+                                            <li><a href="#" onclick="testAlert()">testAlert</a></li>
+                                            <li role="separator" class="divider"></li>
+                                            <li><a href="base_info.html">基本信息</a></li>
+                                            <li><a href="#" onclick="showToast();">Toast</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ========== 内容（可修改）end ============ -->
+                </div>
+            </div>
+            <!-- 底部的tab导航 （一般3~5个）-->
+            <!-- <div id="bottom-tabs-group" class="tabs-group bar-footer">
+                <a class="tab-item" style="width:33%">
+                    <span><i class="fa fa-address-book" aria-hidden="true"></i></span>
+                    <span>首页</span>
+                </a>
+                <a class="tab-item" style="width:33%">
+                    <span><i class="fa fa-address-book" aria-hidden="true"></i></span>
+                    <span>工作</span>
+                </a>
+                <a class="tab-item" style="width:33%">
+                    <span><i class="fa fa-user" aria-hidden="true"></i></span>
+                    <span>我的</span>
+                </a>
+            </div> -->
+        </main>
+        <!-- main 的遮罩 ,侧滑时出现-->
+        <div class="popup-overlay"></div>
+    </div>
+    <!-- modal 全屏弹出层  -->
+    <div id="modal1" class="modal popup-modal panel animated" style="display:none;">
+        <header class="bar bar-nav panel-header">
+            <span style="position:absolute;left: 0.5rem;top: 0;bottom: 0;font-size: 1rem;display:flex;align-content: center; align-items: center;justify-content: center;">
+                <a data-modal="#modal1" class="close">关闭</a>
+             </span>
+            <h3 class="title">关于SUI Mobile</h3>
+        </header>
+        <div class="panel-content native-scroll">
+            <div class="content-inner">
+                <div class="content-block">
+                    <p>SUI Mobile 是阿里巴巴共享业务事业部SDC团队（UED）提供的一套手机UI库。</p>
+                    <p>我们的目的是为手机千牛、百川以及任何手机端的H5页面提供标准的设计规范和前端实现。</p>
+                    <p>SUI Mobile并没有重新发明轮子，我们主要参考了 <a href="http://goratchet.com" external="" target="_blank">ratchet</a> 和 <a href="http://framework7.taobao.org/" external="" target="_blank">Framework7</a></p>
+                    <p>这里只是一个官方示例，详细文档请参考：<a href="http://m.sui.taobao.org/" external="" target="_blank">http://m.sui.taobao.org/</a></p>
+                    <p></p>
+                    <p><a class="button close">确定</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Prompt -->
+    <div id="actionsModal4" class="modal dialog-modal action-dialog" style="display:none;">
+        <div class="action-item" style="display: flex; flex-direction: column;width: inherit;align-items: center;align-content: center;justify-content: space-around;">
+            <span class="title">你叫什么名字</span>
+            <input class="modal-text-input" />
+        </div>
+
+        <div style="height:1px; background:RGBA(243, 243, 243, 1.00); width:100%;"></div>
+        <div class="action-btn" style="display: flex;width: inherit;align-items: center;align-content: center;justify-content: space-around;">
+            <span data-modal="#actionsModal4" class="close" style="color:#0894ec">取消</span>
+            <span style="width:1px; background:RGBA(243, 243, 243, 1.00); height:25px;"></span>
+            <span data-modal="#actionsModal4" class="close" style="color:#0894ec">确定</span>
+        </div>
+    </div>
+
+</body>
+
+</html>
