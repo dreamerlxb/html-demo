@@ -1,15 +1,15 @@
-(function() {  
+(function () {  
     /*
      * 用于记录日期，显示的时候，根据dateObj中的日期的年月显示
      */
       
-    var dateObj = (function() {
+    var dateObj = (function () {
         var _date = new Date();    // 默认为当前系统时间
         return {
-            getDate: function() {   
+            getDate: function () {   
                 return _date;      
             },
-            setDate: function(date) {        
+            setDate: function (date) {        
                 _date = date;
             }    
         };
@@ -31,16 +31,38 @@
         var bodyBox = document.createElement("div");  // 表格区 显示数据
 
         titleBox.className = 'calendar-title-box';     // 设置标题盒子中的html
-        titleBox.innerHTML = "<span class='prev-month' id='prevMonth'></span>" +       "<span class='calendar-title' id='calendarTitle'></span>" +       "<span id='nextMonth' class='next-month'></span>";    
+        titleBox.innerHTML = "<span class='prev-month' id='prevMonth'></span>" +
+                                "<span class='calendar-title' id='calendarTitle'></span>" +
+                                "<span id='nextMonth' class='next-month'></span>";    
         calendar.appendChild(titleBox);    // 添加到calendar div中
               // 设置表格区的html结构
             
         bodyBox.className = 'calendar-body-box';    
-        var _headHtml = "<tr>" +               "<th>日</th>" +               "<th>一</th>" +               "<th>二</th>" +               "<th>三</th>" +               "<th>四</th>" +               "<th>五</th>" +               "<th>六</th>" +             "</tr>";    
+        var _headHtml = "<tr>" +
+                            "<th>日</th>" +
+                            "<th>一</th>" +
+                            "<th>二</th>" +
+                            "<th>三</th>" +
+                            "<th>四</th>" +
+                            "<th>五</th>" +
+                            "<th>六</th>" +
+                          "</tr>";
         var _bodyHtml = "";      // 一个月最多31天，所以一个月最多占6行表格
             
-        for (var i = 0; i < 6; i++) {        _bodyHtml += "<tr>" +               "<td></td>" +               "<td></td>" +               "<td></td>" +               "<td></td>" +               "<td></td>" +               "<td></td>" +               "<td></td>" +             "</tr>";     }    
-        bodyBox.innerHTML = "<table id='calendarTable' class='calendar-table'>" +               _headHtml + _bodyHtml +               "</table>";     // 添加到calendar div中
+        for (var i = 0; i < 6; i++) {       
+            _bodyHtml += "<tr>" +
+                            "<td></td>" +
+                            "<td></td>" +
+                            "<td></td>" +
+                            "<td></td>" +
+                            "<td></td>" +
+                            "<td></td>" +
+                            "<td></td>" +
+                          "</tr>";    
+        }    
+        bodyBox.innerHTML = "<table id='calendarTable' class='calendar-table'>" +
+                       _headHtml + _bodyHtml +
+                        "</table>";     // 添加到calendar div中
             
         calendar.appendChild(bodyBox);  
     }   
@@ -48,7 +70,7 @@
      * 表格中显示数据，并设置类名
      */
       
-    function showCalendarData() {    
+    function showCalendarData() {
         var _year = dateObj.getDate().getFullYear();    
         var _month = dateObj.getDate().getMonth() + 1;    
         var _dateStr = getDateStr(dateObj.getDate());      // 设置顶部标题栏中的 年、月信息
@@ -68,9 +90,15 @@
                   
             _tds[i].setAttribute('data', _thisDayStr);      
             if (_thisDayStr == getDateStr(new Date())) {    // 当前天
-                         _tds[i].className = 'currentDay';       } else if (_thisDayStr.substr(0, 6) == getDateStr(_firstDay).substr(0, 6)) {         _tds[i].className = 'currentMonth';  // 当前月
-                       } else {    // 其他月
-                         _tds[i].className = 'otherMonth';       }    
+                        
+                _tds[i].className = 'currentDay';      
+            } else if (_thisDayStr.substr(0, 6) == getDateStr(_firstDay).substr(0, 6)) {        
+                _tds[i].className = 'currentMonth';  // 当前月
+                      
+            } else {    // 其他月
+                        
+                _tds[i].className = 'otherMonth';      
+            }    
         }  
     }   
     /**
@@ -87,10 +115,22 @@
      * 绑定事件
      */
       
-    function addEvent(dom, eType, func) {     if (dom.addEventListener) {  // DOM 2.0
-                   dom.addEventListener(eType, function(e) {         func(e);       });     } else if (dom.attachEvent) {  // IE5+
-                   dom.attachEvent('on' + eType, function(e) {         func(e);       });     } else {  // DOM 0
-                   dom['on' + eType] = function(e) {         func(e);       }     }   }   
+    function addEvent(dom, eType, func) {    
+        if (dom.addEventListener) {  // DOM 2.0
+                  
+            dom.addEventListener(eType, function (e) {        
+                func(e);      
+            });    
+        } else if (dom.attachEvent) {  // IE5+
+            dom.attachEvent('on' + eType, function (e) {        
+                func(e);      
+            });    
+        } else {  // DOM 0
+            dom['on' + eType] = function (e) {        
+                func(e);      
+            }    
+        }  
+    }   
     /**
      * 点击上个月图标触发
      */

@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="mb_layout_PopWinSecondContent">
-        <form id="guardRailwayRoomAddForm" method="post" action="${ctx}/mobile/add" onsubmit="addGuardRailwayRoom();">
+        <form id="guardRailwayRoomAddForm" name="guardRailwayRoomAddForm" method="post" action="${ctx}/mobile/add" onsubmit="addGuardRailwayRoom();">
             <div class="mb_layoutPopwinList_table">
                 <table cellpadding="0" cellspacing="0" style="margin:0 auto;">
                     <tr>
@@ -153,7 +153,11 @@
         */
         function addGuardRailwayRoom() {
             event.preventDefault(); // prevent native submit
+            //var guardRailwayRoomAddForm = document.guardRailwayRoomAddForm;
+            //console.log(guardRailwayRoomAddForm.charger.value);
             var $form = $(event.target);
+            //console.log(event.target);
+            //console.log(guardRailwayRoomAddForm);
             $form.find('input').change();
             if($form.data('canSubmit')) {
                 console.log("可以提交");
