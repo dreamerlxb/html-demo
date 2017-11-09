@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+
+<head>
+    <script src="../resources/jquery/jquery-3.2.1.js"></script>
+</head>
+
+<body>
+    <div>
+        <input type="file" name="" id="uploadPhoto">
+        <button onclick="uploadFile();">上传图片</button>
+    </div>
+    <script>
+        // 使用FormData上传图片
+        function uploadFile() {
+            var uploadPhoto = document.getElementById('uploadPhoto');
+            if (uploadPhoto.files && uploadPhoto.files.length > 0) { // 如果存在文件，那么先上传文件，在提交数据
+                var fileUploadFormData = new FormData();
+                fileUploadFormData.append('uploadFile', uploadPhoto.files[0]);
+                $.ajax({
+                    url: '${ctx}/file/fileUpLoad',
+                    type: 'POST',
+                    data: fileUploadFormData,
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    success: function (data) {
+                        console.log(data);
+                        if (data == '-1') {
+                            // 文件上传错误
+                            $.alert({
+                                label: '文件上传出错'
+                            });
+                            return;
+                        }
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>
