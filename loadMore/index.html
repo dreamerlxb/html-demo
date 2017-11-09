@@ -11,7 +11,7 @@
             margin: 0;
             padding: 0
         }
-        
+
         .wrapper {
             position: fixed;
             left: 0;
@@ -20,7 +20,7 @@
             height: 100%;
             overflow: hidden;
         }
-        
+
         li {
             width: 100%;
             text-align: center;
@@ -30,7 +30,7 @@
             border: 1px solid #ccc;
             white-space: nowrap;
         }
-        
+
         .load-more-top,
         .load-more-bottom {
             position: absolute;
@@ -40,36 +40,36 @@
             text-align: center;
             line-height: 50px;
         }
-        
+
         .load-more-top {
             top: -50px
         }
-        
+
         .load-more-top.isLoading .loading-icon,
         .load-more-bottom.isLoading .loading-icon {
             display: block;
         }
-        
+
         .load-more-top.isLoading .text,
         .load-more-bottom.isLoading .text {
             display: none;
         }
-        
+
         .load-more-bottom {
             bottom: -50px
         }
-        
+
         .load-more-top span,
         .load-more-bottom span {
             display: block;
             width: 100%;
         }
-        
+
         .load-more-top .loading-icon,
         .load-more-bottom .loading-icon {
             display: none;
         }
-        
+
         .load-more-top .loading-icon,
         .load-more-bottom .loading-icon {
             display: none;
@@ -78,31 +78,31 @@
 </head>
 
 <body>
-    <div class="wrapper">
+    <div id="demo" class="wrapper">
         <ul>
         </ul>
     </div>
     <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
     <script src="./bscroll.js"></script>
     <script>
-      var index = 2;
+        var index = 2;
         $.ajax({
             url: 'https://www.dongqiudi.com/mobile/tab/1/archives',
             dataType: 'json',
-            success: function(data) {
+            success: function (data) {
                 var html = '';
-                $.each(data.list.articles, function(i, v) {
+                $.each(data.list.articles, function (i, v) {
                     html += '<li>' + v.title + '</li>'
                 })
-                $(html).appendTo('.wrapper ul');
-                loadMore($('.wrapper')[0], {
-                    pullDownDone: function($el, scroller, cb) {
+                $(html).appendTo('#demo ul');
+                loadMore($('#demo')[0], {
+                    pullDownDone: function ($el, scroller, cb) {
                         $.ajax({
                             url: 'https://www.dongqiudi.com/mobile/tab/1/archives',
                             dataType: 'json',
-                            success: function(data) {
+                            success: function (data) {
                                 var html = '';
-                                $.each(data.list.articles, function(i, v) {
+                                $.each(data.list.articles, function (i, v) {
                                     html += '<li>' + v.title + '</li>'
                                 })
                                 $('.load-more-scroller', $el).html(html);
@@ -110,17 +110,19 @@
                             }
                         })
                     },
-                    pollUpDone: function($el, scroller, cb) {
-                       $.ajax({
-                            url: 'https://www.dongqiudi.com/mobile/tab/1/archives?page=' + index++,
+                    pollUpDone: function ($el, scroller, cb) {
+                        $.ajax({
+                            url: 'https://www.dongqiudi.com/mobile/tab/1/archives?page=' +
+                                index++,
                             dataType: 'json',
-                            success: function(data) {
+                            success: function (data) {
                                 var html = '';
-                                $.each(data.list.articles, function(i, v) {
+                                $.each(data.list.articles, function (i, v) {
                                     html += '<li>' + v.title + '</li>'
                                 })
-                                setTimeout(function(){
-                                  $('.load-more-scroller', $el).append(html);
+                                setTimeout(function () {
+                                    $('.load-more-scroller', $el).append(
+                                        html);
                                 }, 1500)
                                 cb();
                             }
@@ -160,20 +162,20 @@
             function noop() {};
 
             pagekage();
-// 创建Bcroll实例
+            // 创建Bcroll实例
             var scroller = new BScroll(el, {
                 probeType: 3,
                 click: true
             })
-// 添加滚动事件
-            scroller.on('scroll', function(offset) {
+            // 添加滚动事件
+            scroller.on('scroll', function (offset) {
                 var y = offset.y;
                 pullDownHandle(y);
                 pullUpHandle(y)
             })
             settings.isLoading = false;
-// 触摸结束后判断是否处于刷新或加载状态
-            scroller.on('touchEnd', function(offset) {
+            // 触摸结束后判断是否处于刷新或加载状态
+            scroller.on('touchEnd', function (offset) {
                 console.log('touchend');
                 if (settings.isLoading) {
                     return;
@@ -189,9 +191,9 @@
                     settings.isLoading = true;
                 }
             })
-// 下拉处理
+            // 下拉处理
             function pullDownHandle(y) {
-                
+
                 if (y < 0 || !settings.pullDown) {
                     return;
                 }
@@ -206,9 +208,8 @@
                     $('.load-more-top .text', $el).text(settings.topPullText);
                     settings.topDropped = false;
                 }
-
             }
-// 上拉处理
+            // 上拉处理(load more)
             function pullUpHandle(y) {
                 if (y > scroller.maxScrollY || !settings.pullUp) {
                     return;
@@ -222,18 +223,18 @@
                     settings.bottomDropped = false;
                 }
             }
-// 下拉刷新回调
+            // 下拉刷新回调 (refresh)
             function pullDownFn() {
                 $('.load-more-scroller', $el).css('padding-top', '50px');
                 $('.load-more-top', $el).css('top', 0).addClass('isLoading');
 
-                setTimeout(function() {
+                setTimeout(function () {
                     scroller.refresh();
                 }, 0)
                 settings.pullDownDone($el, scroller, callback);
 
                 function callback() {
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('.load-more-scroller', $el).css('padding-top', 0);
                         $('.load-more-top', $el).css('top', '-50px').removeClass('isLoading');
                         settings.isLoading = false;
@@ -241,12 +242,12 @@
                     }, 1500)
                 }
             }
-// 上拉加载回调
+            // 上拉加载回调(load more)
             function pullUpFn() {
                 $('.load-more-scroller', $el).css('padding-bottom', '50px');
                 $('.load-more-bottom', $el).css('bottom', 0).addClass('isLoading');
 
-                setTimeout(function() {
+                setTimeout(function () {
                     scroller.refresh();
                     scroller.scrollTo(0, scroller.maxScrollY, 500, 'ease')
                 }, 0)
@@ -255,7 +256,7 @@
                 settings.pollUpDone($el, scroller, callback);
 
                 function callback() {
-                    setTimeout(function() {
+                    setTimeout(function () {
 
                         $('.load-more-scroller', $el).css('padding-bottom', 0);
                         $('.load-more-bottom', $el).css('bottom', '-50px').removeClass('isLoading');
@@ -264,22 +265,23 @@
                     }, 1500)
                 }
             }
-// 包装上拉加载和下拉刷新
+            // 包装上拉加载和下拉刷新
             function pagekage() {
                 var $children = $el.children().addClass('load-more-scroller');
                 $el.prepend('<div class="load-more-inner"></div>');
                 $('.load-more-inner', $el).append($children);
 
                 if (settings.pullDown) {
-                    var tpl = '<div class="load-more-top"><span class="text">' + settings.topPullText + '</span><span class="loading-icon">' + settings.topLoadingText + '</span></div>';
+                    var tpl = '<div class="load-more-top"><span class="text">' + settings.topPullText +
+                        '</span><span class="loading-icon">' + settings.topLoadingText + '</span></div>';
                     $('.load-more-inner', $el).prepend(tpl)
                 }
 
                 if (settings.pullUp) {
-                    var tpl = '<div class="load-more-bottom"><span class="text">' + settings.bottomPullText + '</span><span class="loading-icon">' + settings.bottomLoadingText + '</span></div>';
+                    var tpl = '<div class="load-more-bottom"><span class="text">' + settings.bottomPullText +
+                        '</span><span class="loading-icon">' + settings.bottomLoadingText + '</span></div>';
                     $('.load-more-inner', $el).append(tpl)
                 }
-
             }
         }
     </script>

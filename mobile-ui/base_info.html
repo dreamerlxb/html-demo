@@ -14,7 +14,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Slideout tests</title>
-    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="base_info.css">
 
@@ -32,7 +32,7 @@
             color: blueviolet;
             animation: ani-demo-spin 1s linear infinite;
         }
-        
+
         @keyframes ani-demo-spin {
             from {
                 transform: rotate(0deg);
@@ -46,14 +46,14 @@
         }
     </style>
 
-    <script type="text/javascript" src="jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="../resources/jquery/jquery-3.2.1.js"></script>
     <script type="text/javascript" src="refresh.js">
     </script>
 
     <script type="text/javascript">
-        $(function() {
-            $('#refresh').refresh(function(that) {
-                setTimeout(function() { // 模拟刷新
+        $(function () {
+            $('#refresh').refresh(function (that) {
+                setTimeout(function () { // 模拟刷新
                     that.finishRefresh();
                 }, 2000);
             });
@@ -67,11 +67,11 @@
         <main id="panel" class="panel">
             <header class="panel-header bar-header">
                 <span style="position:absolute;left: 0.5rem;top: 0;bottom: 0;font-size: 1rem;display:flex;align-content: center; align-items: center;justify-content: center;">
-                <a class="btn-hamburger" >Left</a>
-              </span>
+                    <a class="btn-hamburger">Left</a>
+                </span>
                 <h3 class="btn-hamburger js-slideout-toggle">This is Title</h3>
                 <span style="position:absolute;right:0.5rem;top: 0;bottom: 0;font-size: 1rem;display:flex;align-content: center; align-items: center;justify-content: center;">
-                  <a class="btn-hamburger" >Right</a>
+                    <a class="btn-hamburger">Right</a>
                 </span>
             </header>
             <div class="panel-content">
@@ -84,69 +84,6 @@
                     <section class="refresh-content">
                         <div class="list-block">
                             <ul>
-                                <li>
-                                    <a href="/demos/bar" class="item-link item-content">
-                                        <div class="item-inner">
-                                            <div class="item-title">标题栏和工具栏</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/demos/btns" class="item-link item-content">
-                                        <div class="item-inner">
-                                            <div class="item-title">按钮</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/demos/form" class="item-link item-content">
-                                        <div class="item-inner">
-                                            <div class="item-title">表单</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/demos/searchbar" class="item-link item-content">
-                                        <div class="item-inner">
-                                            <div class="item-title">搜索栏</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/demos/list" class="item-link item-content">
-                                        <div class="item-inner">
-                                            <div class="item-title">列表</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/demos/tabs" class="item-link item-content">
-                                        <div class="item-inner">
-                                            <div class="item-title">标签页</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/demos/card" class="item-link item-content">
-                                        <div class="item-inner">
-                                            <div class="item-title">卡片</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/demos/grid" class="item-link item-content">
-                                        <div class="item-inner">
-                                            <div class="item-title">栅格</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/demos/modal" class="item-link item-content">
-                                        <div class="item-inner">
-                                            <div class="item-title">对话框</div>
-                                        </div>
-                                    </a>
-                                </li>
                                 <li>
                                     <a href="/demos/preloader" class="item-link item-content">
                                         <div class="item-inner">

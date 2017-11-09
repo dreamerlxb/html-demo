@@ -1,6 +1,6 @@
-$(function() {
+$(function () {
     $.fn.extend({
-        showModal: function() {
+        showModal: function () {
             // 默认显示遮罩层
             var overlayId = 'modal-overlay-' + Date.now();
             var that = this;
@@ -9,7 +9,7 @@ $(function() {
                 visibility: 'visible',
                 opacity: 1
             });
-            overlay.click(function() {
+            overlay.click(function () {
                 $(this).remove();
                 that.hide();
             });
@@ -23,7 +23,7 @@ $(function() {
                 "animation-fill-mode": "forwards"
             });
         },
-        closeModal: function() {
+        closeModal: function () {
             this.css({
                 "animation": 'action_translateY_out',
                 "animation-duration": '0.5s',
@@ -32,7 +32,7 @@ $(function() {
             });
             var that = this;
             var overlayId = this.data('overlay');
-            var setInt_obj = setInterval(function() {
+            var setInt_obj = setInterval(function () {
                 that.hide();
                 $('#' + overlayId).remove(); //移除遮罩
                 clearInterval(setInt_obj);
@@ -40,7 +40,7 @@ $(function() {
         }
     });
     $.extend({
-        alert: function(opts = {}) {
+        alert: function (opts = {}) {
             if (opts.label) {
                 var label = '<span class="title"><p>' + opts.label + '</p></span>';
             }
@@ -67,7 +67,7 @@ $(function() {
                 "animation-fill-mode": "forwards"
             });
             // 关闭alert
-            $(`#${d+ '_ok'}`).click(function() {
+            $(`#${d+ '_ok'}`).click(function () {
                 aSel.css({
                     "animation": 'action_translateY_out',
                     "animation-duration": '0.5s',
@@ -75,7 +75,7 @@ $(function() {
                     "animation-fill-mode": "forwards"
                 });
 
-                var setInt_obj = setInterval(function() {
+                var setInt_obj = setInterval(function () {
                     aSel.remove();
                     overlay.remove();
                     clearInterval(setInt_obj);
@@ -83,7 +83,7 @@ $(function() {
 
             });
         },
-        confirm: function(opts = {}) {
+        confirm: function (opts = {}) {
             var overlay = $('<div class="modal-overlay" style="visibility:visible;opacity:1;"></div>');
             $('body').append(overlay);
 
@@ -111,28 +111,28 @@ $(function() {
                 "animation-fill-mode": "forwards"
             });
             // 点击取消
-            $(`#${d + '_cancel'}`).click(function() {
+            $(`#${d + '_cancel'}`).click(function () {
                 cSel.css({
                     "animation": 'action_translateY_out',
                     "animation-duration": '0.5s',
                     'animation-timing-function': 'ease',
                     "animation-fill-mode": "forwards"
                 });
-                var setInt_obj = setInterval(function() {
+                var setInt_obj = setInterval(function () {
                     cSel.remove();
                     overlay.remove();
                     clearInterval(setInt_obj);
                 }, 0.5 * 1000);
             });
             // 点击确定
-            $(`#${d + '_ok'}`).click(function() {
+            $(`#${d + '_ok'}`).click(function () {
                 cSel.css({
                     "animation": 'action_translateY_out',
                     "animation-duration": '0.5s',
                     'animation-timing-function': 'ease',
                     "animation-fill-mode": "forwards"
                 });
-                var setInt_obj = setInterval(function() {
+                var setInt_obj = setInterval(function () {
                     aSel.remove();
                     overlay.remove();
                     clearInterval(setInt_obj);
@@ -142,7 +142,7 @@ $(function() {
                 }
             });
         },
-        showLoading: function(title = '加载中...') {
+        showLoading: function (title = '加载中...') {
             var overlay = $('<div class="modal-overlay" style="visibility:visible;opacity:1;"></div>');
             overlay.css('background', 'rgba(0, 0, 0, 0.1)');
             $('body').append(overlay);
@@ -156,11 +156,11 @@ $(function() {
             var dSel = $(d);
             $('body').append(dSel);
         },
-        hideLoading: function() {
+        hideLoading: function () {
             $('body>.modal-overlay').remove();
             $('body>.loading').remove();
         },
-        toast: function(opts = {}) {
+        toast: function (opts = {}) {
             var e = `
               <div class="toast" style="z-index:11100; position: absolute;bottom: 20%;">
               ${opts.label}
@@ -168,16 +168,16 @@ $(function() {
               `;
             var eSel = $(e);
             $('body').append(eSel);
-            setTimeout(function() {
+            setTimeout(function () {
                 eSel.remove();
             }, 2000);
         },
-        actionSheets: function(opts = {}) {
+        actionSheets: function (opts = {}) {
             var overlay = $('<div class="modal-overlay" style="visibility:visible;opacity:1;"></div>');
             $('body').append(overlay);
 
             if (opts.buttons) {
-                var bs = opts.buttons.map(function(item, index) {
+                var bs = opts.buttons.map(function (item, index) {
                     return `
                       <div style="height:1px; background:#CFB9B9; width:100%;"/>
                       <span data-index="${index}" class="actions-modal-button">${item}</span>
@@ -205,14 +205,14 @@ $(function() {
                 "animation-fill-mode": "forwards"
             });
             // 选中某一项
-            fSel.children('.actions-modal-group:first-child').children('.actions-modal-button').click(function() {
+            fSel.children('.actions-modal-group:first-child').children('.actions-modal-button').click(function () {
                 fSel.css({
                     "animation": 'action_translateY_out',
                     "animation-duration": '0.5s',
                     'animation-timing-function': 'ease',
                     "animation-fill-mode": "forwards"
                 });
-                var setInt_obj = setInterval(function() {
+                var setInt_obj = setInterval(function () {
                     fSel.remove();
                     overlay.remove();
                     clearInterval(setInt_obj);
@@ -222,14 +222,14 @@ $(function() {
                 }
             });
             // 点击取消
-            $(`#${d + '_cancel'}`).click(function() {
+            $(`#${d + '_cancel'}`).click(function () {
                 fSel.css({
                     "animation": 'action_translateY_out',
                     "animation-duration": '0.5s',
                     'animation-timing-function': 'ease',
                     "animation-fill-mode": "forwards"
                 });
-                var setInt_obj = setInterval(function() { // 执行动画完成后，移除actionSheets
+                var setInt_obj = setInterval(function () { // 执行动画完成后，移除actionSheets
                     fSel.remove();
                     overlay.remove();
                     clearInterval(setInt_obj);

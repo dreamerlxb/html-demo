@@ -5,11 +5,11 @@
   <link rel="Shortcut Icon" href="resources/icon/note.ico">
   <meta charset="UTF-8">
   <title>文件上传</title>
-  <script type="text/javascript" src="resources/js/jquery-2.1.4.min.js"></script>
+  <script type="text/javascript" src="../resources/jquery/jquery-3.2.1.js"></script>
   <script type="text/javascript">
     var i = 2;
-    $(function() {
-      $(".addFile").click(function() {
+    $(function () {
+      $(".addFile").click(function () {
         $(".lastTr").before("<tr class='fileTr'>" +
           "<td><table>" +
           "<caption>File" + i + "</caption>" +
@@ -24,7 +24,7 @@
     });
 
     function sortFile() {
-      $(".fileTr").each(function(index) {
+      $(".fileTr").each(function (index) {
         var n = index + 1;
         var $table = $(this).find("table");
         $table.find("caption").text("File" + n);
@@ -39,7 +39,7 @@
       // alert(data);
       //然后将剩下的tr(除了最后一个)排序
 
-      $(".fileTr").each(function(index) {
+      $(".fileTr").each(function (index) {
         var n = index + 1;
         var $table = $(this).find("table");
         $table.find("caption").text("File" + n);
@@ -63,11 +63,15 @@
               <caption>File1</caption>
               <tr>
                 <td>文件名:</td>
-                <td><input type="file" name="file1"></td>
+                <td>
+                  <input type="file" name="file1">
+                </td>
               </tr>
               <tr>
                 <td>文件描述:</td>
-                <td><textarea name="desc1" placeholder="文件描述"></textarea></td>
+                <td>
+                  <textarea name="desc1" placeholder="文件描述"></textarea>
+                </td>
               </tr>
             </table>
           </td>
@@ -75,7 +79,8 @@
         </tr>
         <tr class="lastTr">
           <td>
-            <input type="submit" name="upload" value="上传">&nbsp;&nbsp;<input class="addFile" type="button" value="添加文件">
+            <input type="submit" name="upload" value="上传">&nbsp;&nbsp;
+            <input class="addFile" type="button" value="添加文件">
           </td>
         </tr>
       </table>

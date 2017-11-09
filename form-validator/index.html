@@ -1,5 +1,6 @@
 <!doctype HTML>
 <html>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Insert title here</title>
@@ -120,12 +121,12 @@
         <!-- 更改的地方 end -->
     </div>
     <script type="text/javascript">
-        $(function() {
+        $(function () {
             $('#guardRailwayRoomAddForm').data('canSubmit', false);
             $('input.required').on('change', function () {
                 var value = $(this).val();
                 console.log(value);
-                if(value.length == 0) {
+                if (value.length == 0) {
                     $(this).parents('tr:first').next('tr').children('td').html("这是必须的");
                     $('#guardRailwayRoomAddForm').data('canSubmit', false);
                 } else {
@@ -134,15 +135,15 @@
                 }
             });
 
-            $('input.telephone').on('change', function() {
-            	 	 var value = $(this).val();
+            $('input.telephone').on('change', function () {
+                var value = $(this).val();
                 var checkone =
-                     /(^([0\+]\d{2,3})\d{3,4}\-\d{3,8}$)|(^([0\+]\d{2,3})\d{3,4}\d{3,8}$)|(^([0\+]\d{2,3}){0,1}13\d{9}$)|(^\d{3,4}\d{3,8}$)|(^\d{3,4}\-\d{3,8}$)/;
+                    /(^([0\+]\d{2,3})\d{3,4}\-\d{3,8}$)|(^([0\+]\d{2,3})\d{3,4}\d{3,8}$)|(^([0\+]\d{2,3}){0,1}13\d{9}$)|(^\d{3,4}\d{3,8}$)|(^\d{3,4}\-\d{3,8}$)/;
                 if (!checkone.test(value)) {
-                	$(this).parents('tr:first').next('tr').children('td').html("联系电话格式错误");
+                    $(this).parents('tr:first').next('tr').children('td').html("联系电话格式错误");
                     $('#guardRailwayRoomAddForm').data('canSubmit', false);
                 } else {
-                	$(this).parents('tr:first').next('tr').children('td').html("");
+                    $(this).parents('tr:first').next('tr').children('td').html("");
                     $('#guardRailwayRoomAddForm').data('canSubmit', true);
                 }
             });
@@ -159,7 +160,7 @@
             //console.log(event.target);
             //console.log(guardRailwayRoomAddForm);
             $form.find('input').change();
-            if($form.data('canSubmit')) {
+            if ($form.data('canSubmit')) {
                 console.log("可以提交");
             } else {
                 console.log("不能提交");

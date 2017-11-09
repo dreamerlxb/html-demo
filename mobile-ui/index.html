@@ -23,22 +23,22 @@
             color: blueviolet;
         }
     </style>
-    <script type="text/javascript" src="jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="../resources/jquery/jquery-3.2.1.js"></script>
     <script type="text/javascript" src="dialog.js"></script>
 
     <script type="text/javascript">
-        $(function() {
+        $(function () {
             $('#menu').data('open', false);
             /////////////////////////////////////////////////////////////////////////////////////
             var menuW = $('#menu').width();
             var startMoveX = 0;
             var endMoveX = 0;
-            $('#panel~.popup-overlay').on('touchstart', function(e) {
+            $('#panel~.popup-overlay').on('touchstart', function (e) {
                 var touch = e.targetTouches[0];
                 startMoveX = touch.pageX;
                 endMoveX = 0;
             });
-            $('#panel~.popup-overlay').on('touchmove', function(e) {
+            $('#panel~.popup-overlay').on('touchmove', function (e) {
                 var touch = e.targetTouches[0]; // 第一个触摸点
                 endMoveX = touch.pageX;
                 if (endMoveX > startMoveX) { // 禁止向左滑，（只可以右滑关闭）
@@ -51,7 +51,7 @@
             });
             // 触摸结束后，如果 main视图的偏移大于屏幕的一半，则打开侧滑
             // 如果小于，则关闭侧滑
-            $('#panel~.popup-overlay').on('touchend', function(e) {
+            $('#panel~.popup-overlay').on('touchend', function (e) {
                 console.log('touchend===1==>');
                 if (endMoveX >= startMoveX) { // 说明未移动
                     return;
@@ -126,14 +126,14 @@
             // });
             //==========================左滑出现侧滑 end================================
             // 关闭Modal
-            $('.modal .close').click(function() {
+            $('.modal .close').click(function () {
                 var m = $(this).data('modal');
                 $(m).closeModal();
             });
 
             // 初始化 底部导航栏
             $('#bottom-tabs-group>:first-child').addClass('tab-item-active').data('active', true);
-            $('#bottom-tabs-group .tab-item').click(function() {
+            $('#bottom-tabs-group .tab-item').click(function () {
                 $('#bottom-tabs-group')
                     .children('.tab-item-active')
                     .removeClass('tab-item-active')
@@ -172,7 +172,7 @@
                 buttons: [
                     '1213', 'dfbdfb', 'sbbefbn'
                 ],
-                selectFunc: function(index) {
+                selectFunc: function (index) {
                     $.toast({
                         label: `选中了第 ${index} 个`
                     });
@@ -192,7 +192,7 @@
             // $('#actionsModal3').showModal();
             $.confirm({
                 label: '确定要退出吗？',
-                okFunc: function() {
+                okFunc: function () {
                     $.alert({
                         label: '您选择了退出'
                     });
@@ -246,11 +246,11 @@
         <main id="panel" class="panel">
             <header class="panel-header bar-header">
                 <span style="position:absolute;left: 0.5rem;top: 0;bottom: 0;font-size: 1rem;display:flex;align-content: center; align-items: center;justify-content: center;">
-                <a onclick="toogleSidebar()" class="btn-hamburger" >Open</a>
-              </span>
+                    <a onclick="toogleSidebar()" class="btn-hamburger">Open</a>
+                </span>
                 <h3 class="btn-hamburger js-slideout-toggle">This is main content</h3>
                 <span style="position:absolute;right:0.5rem;top: 0;bottom: 0;font-size: 1rem;display:flex;align-content: center; align-items: center;justify-content: center;">
-                  <a onclick="aClick()" class="btn-hamburger" >Menu</a>
+                    <a onclick="aClick()" class="btn-hamburger">Menu</a>
                 </span>
             </header>
             <div class="panel-content">
@@ -262,18 +262,36 @@
                             <div class="col-lg-6">
                                 <div class="input-group">
                                     <div class="input-group-btn">
-                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <span class="caret"></span></button>
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action
+                                            <span class="caret"></span>
+                                        </button>
                                         <ul class="dropdown-menu">
-                                            <li><a href="#" onclick="showActionsModal()">Action Sheet</a></li>
-                                            <li><a href="#" onclick="testAlert()">Alert</a></li>
-                                            <li><a href="#" onclick="showConfirm();">Confirm</a></li>
+                                            <li>
+                                                <a href="#" onclick="showActionsModal()">Action Sheet</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" onclick="testAlert()">Alert</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" onclick="showConfirm();">Confirm</a>
+                                            </li>
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="#" onclick="showPrompt();">Prompt</a></li>
-                                            <li><a href="#" onclick="showIndicator()">showIndicator</a></li>
-                                            <li><a href="#" onclick="testAlert()">testAlert</a></li>
+                                            <li>
+                                                <a href="#" onclick="showPrompt();">Prompt</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" onclick="showIndicator()">showIndicator</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" onclick="testAlert()">testAlert</a>
+                                            </li>
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="base_info.html">基本信息</a></li>
-                                            <li><a href="#" onclick="showToast();">Toast</a></li>
+                                            <li>
+                                                <a href="base_info.html">基本信息</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" onclick="showToast();">Toast</a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -308,7 +326,7 @@
         <header class="bar bar-nav panel-header">
             <span style="position:absolute;left: 0.5rem;top: 0;bottom: 0;font-size: 1rem;display:flex;align-content: center; align-items: center;justify-content: center;">
                 <a data-modal="#modal1" class="close">关闭</a>
-             </span>
+            </span>
             <h3 class="title">关于SUI Mobile</h3>
         </header>
         <div class="panel-content native-scroll">
@@ -316,10 +334,17 @@
                 <div class="content-block">
                     <p>SUI Mobile 是阿里巴巴共享业务事业部SDC团队（UED）提供的一套手机UI库。</p>
                     <p>我们的目的是为手机千牛、百川以及任何手机端的H5页面提供标准的设计规范和前端实现。</p>
-                    <p>SUI Mobile并没有重新发明轮子，我们主要参考了 <a href="http://goratchet.com" external="" target="_blank">ratchet</a> 和 <a href="http://framework7.taobao.org/" external="" target="_blank">Framework7</a></p>
-                    <p>这里只是一个官方示例，详细文档请参考：<a href="http://m.sui.taobao.org/" external="" target="_blank">http://m.sui.taobao.org/</a></p>
+                    <p>SUI Mobile并没有重新发明轮子，我们主要参考了
+                        <a href="http://goratchet.com" external="" target="_blank">ratchet</a> 和
+                        <a href="http://framework7.taobao.org/" external="" target="_blank">Framework7</a>
+                    </p>
+                    <p>这里只是一个官方示例，详细文档请参考：
+                        <a href="http://m.sui.taobao.org/" external="" target="_blank">http://m.sui.taobao.org/</a>
+                    </p>
                     <p></p>
-                    <p><a class="button close">确定</a></p>
+                    <p>
+                        <a class="button close">确定</a>
+                    </p>
                 </div>
             </div>
         </div>
@@ -339,7 +364,6 @@
             <span data-modal="#actionsModal4" class="close" style="color:#0894ec">确定</span>
         </div>
     </div>
-
 </body>
 
 </html>
