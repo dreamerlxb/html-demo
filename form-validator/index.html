@@ -5,7 +5,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Insert title here</title>
     <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script> -->
 </head>
 
 <body>
@@ -122,7 +121,6 @@
     </div>
     <script type="text/javascript">
         $(function () {
-            $('#guardRailwayRoomAddForm').data('canSubmit', false);
             $('input.required').on('change', function () {
                 var value = $(this).val();
                 console.log(value);
@@ -150,16 +148,17 @@
         });
 
         /**
-        保存数据
-        */
+         * 保存数据
+         */
         function addGuardRailwayRoom() {
             event.preventDefault(); // prevent native submit
             //var guardRailwayRoomAddForm = document.guardRailwayRoomAddForm;
             //console.log(guardRailwayRoomAddForm.charger.value);
             var $form = $(event.target);
+            // var formElement = event.target;
             //console.log(event.target);
             //console.log(guardRailwayRoomAddForm);
-            $form.find('input').change();
+            $form.find('input').change(); // 主动调用input/select的change方法，检测数据
             if ($form.data('canSubmit')) {
                 console.log("可以提交");
             } else {
