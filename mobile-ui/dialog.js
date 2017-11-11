@@ -39,6 +39,7 @@ $(function () {
             }, 0.5 * 1000);
         }
     });
+    
     $.extend({
         alert: function (opts = {}) {
             if (opts.label) {

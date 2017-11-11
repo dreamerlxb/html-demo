@@ -74,6 +74,10 @@
         .load-more-bottom .loading-icon {
             display: none;
         }
+        .load-more-inner {
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 
@@ -82,55 +86,43 @@
         <ul>
         </ul>
     </div>
-    <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
-    <script src="./bscroll.js"></script>
+    <script src="../../resources/jquery/jquery-3.2.1.js"></script>
+    <script src="../../resources/better-scroll/bscroll.js"></script>
     <script>
         var index = 2;
-        $.ajax({
-            url: 'https://www.dongqiudi.com/mobile/tab/1/archives',
-            dataType: 'json',
-            success: function (data) {
-                var html = '';
-                $.each(data.list.articles, function (i, v) {
-                    html += '<li>' + v.title + '</li>'
-                })
-                $(html).appendTo('#demo ul');
-                loadMore($('#demo')[0], {
-                    pullDownDone: function ($el, scroller, cb) {
-                        $.ajax({
-                            url: 'https://www.dongqiudi.com/mobile/tab/1/archives',
-                            dataType: 'json',
-                            success: function (data) {
-                                var html = '';
-                                $.each(data.list.articles, function (i, v) {
-                                    html += '<li>' + v.title + '</li>'
-                                })
-                                $('.load-more-scroller', $el).html(html);
-                                cb();
-                            }
-                        })
-                    },
-                    pollUpDone: function ($el, scroller, cb) {
-                        $.ajax({
-                            url: 'https://www.dongqiudi.com/mobile/tab/1/archives?page=' +
-                                index++,
-                            dataType: 'json',
-                            success: function (data) {
-                                var html = '';
-                                $.each(data.list.articles, function (i, v) {
-                                    html += '<li>' + v.title + '</li>'
-                                })
-                                setTimeout(function () {
-                                    $('.load-more-scroller', $el).append(
-                                        html);
-                                }, 1500)
-                                cb();
-                            }
-                        })
-                    }
-                })
-            }
-        })
+        var data = [1,2,3,4,5,6,7,8,9,23,34,454,6567,576,5675,675,675,6756,78568];
+        setTimeout(function () { // 模拟刷新
+            var html = '';
+            $.each(data, function (i, v) {
+                html += '<li>' + v + '</li>'
+            });
+            $(html).appendTo('#demo ul');
+
+            loadMore($('#demo')[0], {
+                pullDownDone: function ($el, scroller, cb) {
+                    setTimeout(function() {
+                        var html = '';
+                        $.each(data, function (i, v) {
+                            html += '<li>' + v + '</li>'
+                        });
+                        $('.load-more-scroller', $el).html(html);
+                        cb();
+                    });
+                },
+                pollUpDone: function ($el, scroller, cb) {
+                    setTimeout(function() {
+                        var html = '';
+                        $.each(data, function (i, v) {
+                            html += '<li>' + v + '</li>'
+                        });
+                        setTimeout(function () {
+                            $('.load-more-scroller', $el).append(html);
+                        }, 1500)
+                        cb();
+                    });
+                }
+            })
+        }, 2000);
 
         function loadMore(el, options) {
             // 初始化设置
@@ -169,14 +161,16 @@
             })
             // 添加滚动事件
             scroller.on('scroll', function (offset) {
+                console.log("offset", offset);
                 var y = offset.y;
                 pullDownHandle(y);
                 pullUpHandle(y)
             })
+
             settings.isLoading = false;
             // 触摸结束后判断是否处于刷新或加载状态
             scroller.on('touchEnd', function (offset) {
-                console.log('touchend');
+                console.log('touchend', offset);
                 if (settings.isLoading) {
                     return;
                 }
@@ -193,18 +187,15 @@
             })
             // 下拉处理
             function pullDownHandle(y) {
-
                 if (y < 0 || !settings.pullDown) {
                     return;
                 }
                 settings.direction = 'down';
 
                 if (y > settings.topDistance) {
-                    console.log('y > settings.topDistance');
                     $('.load-more-top .text', $el).text(settings.bottomPullText);
                     settings.topDropped = true;
                 } else {
-                    console.log('y <= settings.topDistance');
                     $('.load-more-top .text', $el).text(settings.topPullText);
                     settings.topDropped = false;
                 }
