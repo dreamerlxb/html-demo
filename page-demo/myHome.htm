@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)http://www.jianshu.com/u/cd71ddfdf5bf -->
+<html>
+<!--<![endif]-->
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>我的主页</title>
+  <link rel="stylesheet" media="all" href="./resources/web.css">
+
+  <link rel="stylesheet" media="all" href="./resources/entry.css">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+    crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+    crossorigin="anonymous"></script>
+
+  <style>
+    .navbar-default {
+      background-color: #fff;
+      border-color: #f0f0f0;
+    }
+
+    .navbar-fixed-top {
+      top: 0;
+      border-width: 0 0 1px;
+      right: 0;
+      left: 0;
+      z-index: 1030;
+    }
+  </style>
+  <script>
+    window.onload = function() {
+      console.log('===onload==');
+      alert('onload');
+    }
+    // $(function() {
+    //   alert('ready');
+    // });
+
+    document.addEventListener("DOMContentLoaded", function() {
+      alert('ready');
+    });
+
+    window.onbeforeunload = function() {
+      console.log('onbeforeunload');
+      alert('onbeforeunload');
+    }
+
+    window.onunload = function() {
+      console.log('onunload');
+      alert('onunload');
+    }
+  </script>
+</head>
+
+<body lang="zh-CN" style="overflow-y: scroll;">
+  <!-- 全局顶部导航栏 -->
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="width-limit">
+      <!-- 左上方 Logo -->
+      <a class="logo" href="http://www.jianshu.com/">
+          <img src="http://placehold.it/112X52" alt="Logo">
+      </a>
+
+      <div class="container">
+        <div class="collapse navbar-collapse" id="menu">
+          <ul class="nav">
+            <li class="nav-item">
+              <a href="http://www.jianshu.com/">
+                <span class="menu-text">发现</span>
+                <i class="iconfont ic-navigation-discover menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="http://www.jianshu.com/subscriptions">
+                <span class="menu-text">关注</span>
+                <i class="iconfont ic-navigation-follow menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item notification dropdown">
+              <a class="dropdown-toggle" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="http://www.jianshu.com/notifications"
+                class="notification-btn">
+                <span class="menu-text">消息</span>
+                <i class="iconfont ic-navigation-notification menu-icon"></i>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                <li class="dropdown-item">
+                  <a href="http://www.jianshu.com/notifications#/comments">
+                    <i class="iconfont ic-comment"></i>
+                    <span>评论</span>
+                  </a>
+                </li>
+                <li class="dropdown-item">
+                  <a href="http://www.jianshu.com/notifications#/chats">
+                    <i class="iconfont ic-chats"></i>
+                    <span>简信</span>
+                  </a>
+                </li>
+                <li class="dropdown-item">
+                  <a href="http://www.jianshu.com/notifications#/requests">
+                    <i class="iconfont ic-requests"></i>
+                    <span>投稿请求</span>
+                  </a>
+                </li>
+                <li class="dropdown-item">
+                  <a href="http://www.jianshu.com/notifications#/likes">
+                    <i class="iconfont ic-likes"></i>
+                    <span>喜欢和赞</span>
+                  </a>
+                </li>
+                <li class="dropdown-item">
+                  <a href="http://www.jianshu.com/notifications#/follows">
+                    <i class="iconfont ic-follows"></i>
+                    <span>关注</span>
+                    <!---->
+                  </a>
+                </li>
+                <li class="dropdown-item">
+                  <a href="http://www.jianshu.com/notifications#/money">
+                    <i class="iconfont ic-money"></i>
+                    <span>赞赏</span>
+                    <!---->
+                  </a>
+                </li>
+                <li class="dropdown-item">
+                  <a href="http://www.jianshu.com/notifications#/others">
+                    <i class="iconfont ic-others"></i>
+                    <span>其他消息</span>
+                    <!---->
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="search">
+              <form target="_blank" action="http://www.jianshu.com/search" accept-charset="UTF-8" method="get">
+                <input name="utf8" type="hidden" value="✓">
+                <input type="text" name="q" id="q" value="" autocomplete="off" placeholder="搜索" class="search-input">
+                <a class="search-btn" href="javascript:void(null)">
+                  <i class="iconfont ic-search"></i>
+                </a>
+              </form>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 右上角 -->
+      <!-- 如果用户登录，显示下拉菜单 -->
+      <div class="user" style="margin-right: 20px;">
+        <div data-hover="dropdown">
+          <a class="avatar" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="http://www.jianshu.com/u/cd71ddfdf5bf">
+            <img src="http://placehold.it/40X40" alt="120">
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li class="dropdown-item">
+              <a href="http://www.jianshu.com/u/cd71ddfdf5bf">
+                <i class="iconfont ic-user"></i>
+                <span>我的主页</span>
+              </a>
+            </li>
+            <li class="dropdown-item">
+              <a href="http://www.jianshu.com/bookmarks">
+                <i class="iconfont ic-mark"></i>
+                <span>收藏的文章</span>
+              </a>
+            </li>
+            <li class="dropdown-item">
+              <a href="http://www.jianshu.com/users/cd71ddfdf5bf/liked_notes">
+                <i class="iconfont ic-navigation-like"></i>
+                <span>喜欢的文章</span>
+              </a>
+            </li>
+            <li class="dropdown-item">
+              <a href="http://www.jianshu.com/wallet">
+                <i class="iconfont ic-navigation-wallet"></i>
+                <span>我的钱包</span>
+              </a>
+            </li>
+            <li class="dropdown-item">
+              <a href="http://www.jianshu.com/settings">
+                <i class="iconfont ic-navigation-settings"></i>
+                <span>设置</span>
+              </a>
+            </li>
+            <li class="dropdown-item">
+              <a href="http://www.jianshu.com/faqs">
+                <i class="iconfont ic-navigation-feedback"></i>
+                <span>帮助与反馈</span>
+              </a>
+            </li>
+            <li class="dropdown-item">
+              <a rel="nofollow" data-method="delete" href="http://www.jianshu.com/sign_out">
+                <i class="iconfont ic-navigation-signout"></i>
+                <span>退出</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- 登录显示写文章 -->
+      <a class="btn write-btn" target="_blank" href="http://www.jianshu.com/writer#/">
+        <i class="iconfont ic-write"></i>写文章
+      </a>
+    </div>
+  </nav>
+
+  <div class="container person">
+    <div class="row">
+      <div class="col-xs-16 main">
+        <div class="main-top">
+          <a class="avatar" href="http://www.jianshu.com/u/cd71ddfdf5bf">
+            <img src="http://placehold.it/80X80" alt="240">
+          </a>
+
+          <div class="title">
+            <a class="name" href="http://www.jianshu.com/u/cd71ddfdf5bf">XXXXXXX</a>
+            <i class="iconfont ic-man"></i>
+          </div>
+          <div class="info">
+            <ul>
+              <li>
+                <div class="meta-block">
+                  <a href="http://www.jianshu.com/users/cd71ddfdf5bf/following">
+                    <p>11</p>
+                    关注
+                    <i class="iconfont ic-arrow"></i>
+                  </a>
+                </div>
+              </li>
+              <li>
+                <div class="meta-block">
+                  <a href="http://www.jianshu.com/users/cd71ddfdf5bf/followers">
+                    <p>0</p>
+                    粉丝
+                    <i class="iconfont ic-arrow"></i>
+                  </a>
+                </div>
+              </li>
+              <li>
+                <div class="meta-block">
+                  <a href="http://www.jianshu.com/u/cd71ddfdf5bf">
+                    <p>14</p>
+                    文章
+                    <i class="iconfont ic-arrow"></i>
+                  </a>
+                </div>
+              </li>
+              <li>
+                <div class="meta-block">
+                  <p>5551</p>
+                  <div>字数</div>
+                </div>
+              </li>
+              <li>
+                <div class="meta-block">
+                  <p>0</p>
+                  <div>收获喜欢</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <ul class="trigger-menu" data-pjax-container="#list-container">
+          <li class="active">
+            <a href="http://www.jianshu.com/u/cd71ddfdf5bf?order_by=shared_at">
+              <i class="iconfont ic-articles"></i> 文章
+            </a>
+          </li>
+          <li class="">
+            <a href="http://www.jianshu.com/users/cd71ddfdf5bf/timeline">
+              <i class="iconfont ic-feed"></i> 动态
+            </a>
+          </li>
+          <li class="">
+            <a href="http://www.jianshu.com/u/cd71ddfdf5bf?order_by=commented_at">
+              <i class="iconfont ic-latestcomments"></i> 最新评论
+            </a>
+          </li>
+          <li class="">
+            <a href="http://www.jianshu.com/u/cd71ddfdf5bf?order_by=top">
+              <i class="iconfont ic-hot"></i> 热门
+            </a>
+          </li>
+        </ul>
+
+        <div id="list-container">
+          <!-- 文章列表模块 -->
+          <ul class="note-list" infinite-scroll-url="/u/cd71ddfdf5bf?order_by=shared_at">
+            <li id="note-16285925" data-note-id="16285925" class="">
+              <div class="content">
+                <div class="author">
+                  <a class="avatar" target="_blank" href="http://www.jianshu.com/u/cd71ddfdf5bf">
+                    <img src="http://placehold.it/32X32" alt="64">
+                  </a>
+                  <div class="name">
+                    <a class="blue-link" target="_blank" href="http://www.jianshu.com/u/cd71ddfdf5bf">jokerli_</a>
+                    <span class="time" data-shared-at="2017-09-16T20:21:42+08:00">09.16 20:21</span>
+                  </div>
+                </div>
+                <a class="title" target="_blank" href="http://www.jianshu.com/p/3f66f44f2213">underscore常用的方法</a>
+                <p class="abstract">
+                  Collections map/filter map()和filter()可以作用于Object every / some 当集合的所有元素都满足条件时，_.every()函...
+                </p>
+                <div class="meta">
+                  <a target="_blank" href="http://www.jianshu.com/p/3f66f44f2213">
+                    <i class="iconfont ic-list-read"></i> 0
+                  </a>
+                  <a target="_blank" href="http://www.jianshu.com/p/3f66f44f2213#comments">
+                    <i class="iconfont ic-list-comments"></i> 0
+                  </a>
+                  <span>
+                    <i class="iconfont ic-list-like"></i> 0</span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-xs-7 col-xs-offset-1 aside">
+        <div class="title">个人介绍</div>
+        <a class="function-btn" data-action="start-edit-intro" href="javascript:void(0)">
+          <i class="iconfont ic-edit-s"></i>编辑</a>
+        <form class="profile-edit js-intro-form" data-type="json" id="edit_user_1800520" action="http://www.jianshu.com/users/cd71ddfdf5bf"
+          accept-charset="UTF-8" data-remote="true" method="post">
+          <input name="utf8" type="hidden" value="✓">
+          <input type="hidden" name="_method" value="patch">
+          <textarea name="user[intro]" id="user_intro">stay hungry，stay foolish</textarea>
+          <input type="submit" name="commit" value="保存" class="btn btn-hollow" data-action="save-edit-intro" data-disable-with="保存">
+          <a data-action="cancel-edit-intro" href="javascript:void(null);">取消</a>
+        </form>
+        <div class="description">
+          <div class="js-intro">stay hungry，stay foolish</div>
+          <a class="social-icon-sprite social-icon-weibo" target="_blank" href="http://weibo.com/u/3453785722"></a>
+        </div>
+        <div id="user-publications">
+          <!---->
+        </div>
+        <ul class="list user-dynamic">
+          <li>
+            <a href="http://www.jianshu.com/users/cd71ddfdf5bf/subscriptions">
+              <i class="iconfont ic-collection"></i>
+              <span>我关注的专题/文集</span>
+            </a>
+          </li>
+          <li>
+            <a href="http://www.jianshu.com/users/cd71ddfdf5bf/liked_notes">
+              <i class="iconfont ic-like"></i>
+              <span>我喜欢的文章</span>
+            </a>
+          </li>
+        </ul>
+        <!-- 专题和文集 -->
+        <div>
+          <div>
+            <!---->
+            <div class="title">我创建的专题</div>
+            <div class="new-collection-block">
+              <a href="http://www.jianshu.com/collections/new" class="new-collection-btn">
+                <i class="iconfont ic-follow"></i>
+                <span>创建一个新专题</span>
+              </a>
+            </div>
+          </div>
+          <!---->
+          <div>
+            <div class="title">
+              我的文集
+            </div>
+            <ul class="list">
+              <li>
+                <a href="http://www.jianshu.com/nb/3691718" target="_blank">
+                  <i class="iconfont ic-search-notebook"></i>
+                </a>
+                <a href="http://www.jianshu.com/nb/3691718" target="_blank" class="name">随笔</a>
+              </li>
+              <li>
+                <a href="http://www.jianshu.com/nb/15841549" target="_blank">
+                  <i class="iconfont ic-search-notebook"></i>
+                </a>
+                <a href="http://www.jianshu.com/nb/15841549" target="_blank" class="name">javascript</a>
+              </li>
+              <li>
+                <a href="http://www.jianshu.com/nb/13627933" target="_blank">
+                  <i class="iconfont ic-search-notebook"></i>
+                </a>
+                <a href="http://www.jianshu.com/nb/13627933" target="_blank" class="name">Linux</a>
+              </li>
+              <li>
+                <a href="http://www.jianshu.com/nb/13627932" target="_blank">
+                  <i class="iconfont ic-search-notebook"></i>
+                </a>
+                <a href="http://www.jianshu.com/nb/13627932" target="_blank" class="name">Mac</a>
+              </li>
+              <li>
+                <a href="http://www.jianshu.com/nb/13627920" target="_blank">
+                  <i class="iconfont ic-search-notebook"></i>
+                </a>
+                <a href="http://www.jianshu.com/nb/13627920" target="_blank" class="name">Android</a>
+              </li>
+              <li>
+                <a href="http://www.jianshu.com/nb/13627910" target="_blank">
+                  <i class="iconfont ic-search-notebook"></i>
+                </a>
+                <a href="http://www.jianshu.com/nb/13627910" target="_blank" class="name">Ruby On Rails</a>
+              </li>
+              <li>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="side-tool">
+    <ul>
+      <li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="回到顶部" style="display: none;">
+        <a class="function-button">
+          <i class="iconfont ic-backtop"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+</body>
+
+</html>
