@@ -1,26 +1,30 @@
 <!doctype html>
 <html>
-    <head>
 
-    </head>
-    <body>
-        <script>
-            if(navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    function(pos) { // 如果成果则执行该回调函数
-                        console.log(pos);
-                        alert(JSON.stringify(pos));
-                    }, function(err){ // 如果失败则执行该回调函数
-                        console.log(err);
-                        alert(JSON.stringify(err));
-                    }, { // 附带参数
-                        enableHighAccuracy: false, // 提高精度(耗费资源)
-                        timeout: 10000, // 超过timeout则调用失败的回调函数
-                        maximumAge: 1000 // 获取到的地理信息的有效期，超过有效期则重新获取一次位置信息
-                    });
-            } else {
-                alert("浏览器不支持 navigator");
-            }
-        </script>
-    </body>
+<head>
+
+</head>
+
+<body>
+    <script>
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function (pos) { // 如果成果则执行该回调函数
+                    console.log(pos);
+                    alert(JSON.stringify(pos));
+                },
+                function (err) { // 如果失败则执行该回调函数
+                    console.log(err);
+                    alert(JSON.stringify(err));
+                }, { // 附带参数
+                    enableHighAccuracy: false, // 提高精度(耗费资源)
+                    timeout: 10000, // 超过timeout则调用失败的回调函数
+                    maximumAge: 1000 // 获取到的地理信息的有效期，超过有效期则重新获取一次位置信息
+                });
+        } else {
+            alert("浏览器不支持 navigator");
+        }
+    </script>
+</body>
+
 </html>

@@ -2,118 +2,13 @@
 <html>
 
 <body>
+    <script src="./jquery-extention/utils.js"></script>
+    <script src="./jquery-extention/idCard.js"></script>
     <script>
-        var aCity = {
-            11: "北京",
-            12: "天津",
-            13: "河北",
-            14: "山西",
-            15: "内蒙古",
-            21: "辽宁",
-            22: "吉林",
-            23: "黑龙江",
-            31: "上海",
-            32: "江苏",
-            33: "浙江",
-            34: "安徽",
-            35: "福建",
-            36: "江西",
-            37: "山东",
-            41: "河南",
-            42: "湖北",
-            43: "湖南",
-            44: "广东",
-            45: "广西",
-            46: "海南",
-            50: "重庆",
-            51: "四川",
-            52: "贵州",
-            53: "云南",
-            54: "西藏",
-            61: "陕西",
-            62: "甘肃",
-            63: "青海",
-            64: "宁夏",
-            65: "新疆",
-            71: "台湾",
-            81: "香港",
-            82: "澳门",
-            91: "国外"
-        };
-        //18位校验 XXXXXXXXXXXXXXXXXX
-        //六位数字地址码，八位数字出生日期码，三位数字顺序码和一位数字校验码。顺序码的奇数分给男性，偶数分给女性。
-        // 1~2  省
-        // 3~4  市
-        // 5~6  区
-        // 7~10 出生年
-        // 11~12 月
-        // 13~14 日
-        // 15~17 顺序码
-        // 18 校验位
-        function isCardIDFor18(sId) {
-            // console.log(sId);
-            var info = "";
-            if (!/^\d{17}(\d|x)$/i.test(sId)) {
-                console.log("你输入的身份证长度或格式错误");
-                return false;
-            }
-            sId = sId.replace(/x$/i, "a");
-            let city = parseInt(sId.substr(0, 2));
-            if (aCity[city] == null) {
-                console.log("你的身份证地区非法");
-                return false;
-            }
-            let year = sId.substr(6, 4);
-            let month = sId.substr(10, 2);
-            let day = sId.substr(12, 2);
-            sBirthday = year + "-" + month + "-" + day;
-            console.log(sBirthday);
-            var d = new Date(sBirthday.replace(/-/g, "/"));
-            console.log(d);
-            if (year != d.getFullYear() || month != (d.getMonth() + 1) || day != d.getDate()) {
-                console.log(身份证上的出生日期非法);
-                return false;
-            }
-            // 校验位
-            var iSum = 0;
-            for (var i = 17; i >= 0; i--) {
-                // 第i位置上的加权因子 Wi = 2^ (n-1）(mod 11)
-                let w = Math.pow(2, i) % 11; //从右往左
-                console.log('w = ', w);
 
-                // 第i位置上的号码字符值
-                let a = parseInt(sId.charAt(17 - i), 11);
-                console.log('a = ', a);
-                iSum += w * a;
-            }
-            console.log('iSum = ', iSum);
-            if (iSum % 11 != 1) {
-                console.log("你输入的身份证号非法");
-                return false;
-            };
-            // let sex = sId.substr(16, 1) % 2 ? "男" : "女";
-            // console.log('sex', sex);
-            return true;
-        }
-
-        // 15位校验规则 6位地址编码+6位出生日期+3位顺序号
-        function isCardIDFor15(sId) {
-            var info = "";
-            if (!/^\d{15}$/i.test(sId)) {
-                console.log("你输入的身份证长度或格式错误");
-                return false;
-            }
-            if (!/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i.test(sId)) {
-                console.log("身份证号格式错误");
-                return false;
-            }
-            let city = parseInt(sId.substr(0, 2));
-            if (aCity[city] == null) {
-                console.log("你的身份证地区非法");
-                return false;
-            }
-            return true;
-        }
+        console.log(Utils.IDCard);
+        // var idcard = new Utils.IDCard('23423423');
+        console.log(Utils.checkIDCard('23423423'));    
     </script>
 </body>
 
