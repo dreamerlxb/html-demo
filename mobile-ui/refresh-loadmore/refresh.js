@@ -6,22 +6,18 @@ $(function() {
             var endMoveY = 0;
             var refreshDistance = 56; //this.children('.refresh-layer:first-child').height();
             var isRefresh = false;
-            this.children('.loadmore-layer').click(function() {
-                console.log('====AA====', this);
+
+            var $refreshLayer = $(this.children('.refresh-layer')[0]);
+            var $refreshContainer = $(this.parent('.refresh-container')[0]);
+            var $loadMoreLayer = $(this.children('.loadmore-layer')[0]);
+
+            $loadMoreLayer.click(function() {
                 $(this).children('span:last').html('加载中...');
                 $(this).children('span:first').html('<i class="fa fa-circle-o-notch spin-icon-load" style="font-size: 18px;"></i>');
                 if(loadMoreFunc) {
                     loadMoreFunc(that);
                 }
             });
-
-            // var viewH = $this.height(), //可见高度  
-            // contentH = $this.get(0).scrollHeight,//内容高度  
-            // scrollTop = $this.scrollTop(); //滚动高度 
-            var content = this.children('.refresh-content')[0];
-            console.log('viewH', $(content).height());
-            console.log('contentH', $(content).get(0).scrollHeight);
-            console.log('scrollTop', $(content).scrollTop());
 
             this.on('touchstart', function(e) {
                 if ($(this).offset().top >= 0) { // 说明已经在最顶端了
@@ -32,17 +28,16 @@ $(function() {
                 }
             }).on('touchmove', function(e) {
                 var $this = $(this);
-
                 if (isRefresh) {
                     endMoveY = e.targetTouches[0].pageY; // 记录开始move时的触点（Y方向）
                     if (endMoveY > startMoveY) { // 说明开始向下移动
                         $this.css('transform', 'translateY(' + (endMoveY - startMoveY) + 'px)');
                         if (endMoveY - startMoveY > refreshDistance) {
-                            $this.children('.refresh-layer').children('span:first').html('↑');
-                            $this.children('.refresh-layer').children('span:last').html('释放刷新');
+                            $refreshLayer.children('span:first').html('↑');
+                            $refreshLayer.children('span:last').html('释放刷新');
                         } else { // 改变箭头方向
-                            $this.children('.refresh-layer').children('span:first').html('↓');
-                            $this.children('.refresh-layer').children('span:last').html('下拉刷新');
+                            $refreshLayer.children('span:first').html('↓');
+                            $refreshLayer.children('span:last').html('下拉刷新');
                         }
                     }
                 } else {
@@ -55,12 +50,18 @@ $(function() {
                 }
                 console.log("endMoveY = ", endMoveY);
             }).on('touchend', function(e) {
+                console.log('touchend', e);
+
+                console.log('touchend', $loadMoreLayer);
+                console.log('touchend', $loadMoreLayer.offset());
+                console.log('touchend', $refreshContainer.height());
+
                 if (isRefresh) {
                     if (endMoveY > startMoveY) { // 说明是向下移动的
                         if (endMoveY - startMoveY >= refreshDistance) { // 如果移动超过refreshDistance的高度后,进入刷新状态
                             $(this).css('transform', 'translateY('+ refreshDistance +'px)');
-                            $(this).children('.refresh-layer').children('span:last').html('加载中...');
-                            $(this).children('.refresh-layer').children('span:first').html('<i class="fa fa-circle-o-notch spin-icon-load" style="font-size: 18px;"></i>');
+                            $refreshLayer.children('span:last').html('加载中...');
+                            $refreshLayer.children('span:first').html('<i class="fa fa-circle-o-notch spin-icon-load" style="font-size: 18px;"></i>');
                             if (refreshFunc) { // 开始刷新
                                 refreshFunc(that);
                             }
@@ -68,30 +69,27 @@ $(function() {
                             $(this).css('transform', 'translateY(-0px)');
                         }
                     }
+                } else { // 加载更多
+                    if(Math.abs($loadMoreLayer.offset().top -  $refreshContainer.height())  < 1) {
+                        $(this).children('span:last').html('加载中...');
+                        $(this).children('span:first').html('<i class="fa fa-circle-o-notch spin-icon-load" style="font-size: 18px;"></i>');
+                        if(loadMoreFunc) {
+                            loadMoreFunc(that);
+                        }
+                    }
                 }
-            });
-            this.scroll(function() {
-                var $this = $(this);
-                var viewH = $this.height(), //可见高度  
-                contentH = $this.get(0).scrollHeight,//内容高度  
-                scrollTop = $this.scrollTop(); //滚动高度 
-
-                console.log('viewH', viewH);
-                console.log('contentH', contentH);
-                console.log('scrollTop', scrollTop);
-                if(scrollTop/(contentH -viewH) >= 0.95) { //到达底部100px时,加载新内容  
-                    console.log("load more");
-                }  
             });
         },
         finishRefresh: function() {
+            var $refreshLayer = $(this.children('.refresh-layer')[0]);
             this.css('transform', 'translateY(-0px)'); //复原
-            this.children('.refresh-layer').children('span:last').html('下拉刷新');
-            this.children('.refresh-layer').children('span:first').html('↓');
+            $refreshLayer.children('span:last').html('下拉刷新');
+            $refreshLayer.children('span:first').html('↓');
         },
         finishLoadMore: function() {
-            this.children('.loadmore-layer').children('span:last').html('点击加载');
-            this.children('.loadmore-layer').children('span:first').html('');
+            var $loadMoreLayer = $(this.children('.loadmore-layer')[0]);
+            $loadMoreLayer.children('span:last').html('点击加载');
+            $loadMoreLayer.children('span:first').html('');
         }
     });
 });
