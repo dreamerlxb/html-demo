@@ -57,6 +57,11 @@ body {
     overflow: auto;
 }
 
+.refresh {
+    transition-property: transform;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+}
 
 /* 列表 */
 

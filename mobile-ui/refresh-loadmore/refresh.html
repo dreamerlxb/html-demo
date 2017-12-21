@@ -44,6 +44,12 @@
                 transform: rotate(360deg);
             }
         }
+
+        .refresh {
+            transition-property: transform;
+            transition-duration: 0.3s;
+            transition-timing-function: ease;
+        }
     </style>
 
     <script type="text/javascript" src="../../resources/jquery/jquery-3.2.1.js"></script>
@@ -79,8 +85,7 @@
                 </span>
             </header>
             <div class="panel-content refresh-container">
-                <div id="refresh">
-                    <!-- ========== 这里一下是内容（可修改） ============ -->
+                <div id="refresh" >
                     <div class="refresh-layer">
                         <span style="margin-right: 10px;">↓</span>
                         <span>下拉刷新</span>
@@ -96,7 +101,7 @@
                                 </a>
                             </li>
                         
-                            <!-- <li>
+                            <li>
                                 <a href="/demos/actions" class="item-link item-content">
                                     <div class="item-inner">
                                         <div class="item-title">操作表</div>
@@ -117,7 +122,7 @@
                                         <div class="item-title">操作表</div>
                                     </div>
                                 </a>
-                            </li> -->
+                            </li>
                             <li>
                                 <a href="/demos/calendar" class="item-link item-content">
                                     <div class="item-inner">

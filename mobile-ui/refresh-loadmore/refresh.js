@@ -20,6 +20,7 @@ $(function() {
             });
 
             this.on('touchstart', function(e) {
+                $(this).removeClass('refresh'); // 滑动开始时，移除移动动画
                 if ($(this).offset().top >= 0) { // 说明已经在最顶端了
                     isRefresh = true;
                     startMoveY = e.targetTouches[0].pageY; // 记录开始move时的触点（Y方向）
@@ -48,31 +49,24 @@ $(function() {
                         isRefresh = false;
                     }
                 }
-                console.log("endMoveY = ", endMoveY);
             }).on('touchend', function(e) {
-                console.log('touchend', e);
-
-                console.log('touchend', $loadMoreLayer);
-                console.log('touchend', $loadMoreLayer.offset());
-                console.log('touchend', $refreshContainer.height());
-
                 if (isRefresh) {
                     if (endMoveY > startMoveY) { // 说明是向下移动的
                         if (endMoveY - startMoveY >= refreshDistance) { // 如果移动超过refreshDistance的高度后,进入刷新状态
-                            $(this).css('transform', 'translateY('+ refreshDistance +'px)');
+                            $(this).addClass('refresh').css('transform', 'translateY('+ refreshDistance +'px)');
                             $refreshLayer.children('span:last').html('加载中...');
                             $refreshLayer.children('span:first').html('<i class="fa fa-circle-o-notch spin-icon-load" style="font-size: 18px;"></i>');
                             if (refreshFunc) { // 开始刷新
                                 refreshFunc(that);
                             }
                         } else { // 否则重置
-                            $(this).css('transform', 'translateY(-0px)');
+                            $(this).addClass('refresh').css('transform', 'translateY(-0px)');
                         }
                     }
                 } else { // 加载更多
                     if(Math.abs($loadMoreLayer.offset().top -  $refreshContainer.height())  < 1) {
-                        $(this).children('span:last').html('加载中...');
-                        $(this).children('span:first').html('<i class="fa fa-circle-o-notch spin-icon-load" style="font-size: 18px;"></i>');
+                        $loadMoreLayer.children('span:last').html('加载中...');
+                        $loadMoreLayer.children('span:first').html('<i class="fa fa-circle-o-notch spin-icon-load" style="font-size: 18px;"></i>');
                         if(loadMoreFunc) {
                             loadMoreFunc(that);
                         }
@@ -82,7 +76,7 @@ $(function() {
         },
         finishRefresh: function() {
             var $refreshLayer = $(this.children('.refresh-layer')[0]);
-            this.css('transform', 'translateY(-0px)'); //复原
+            this.addClass('refresh').css('transform', 'translateY(-0px)'); //复原
             $refreshLayer.children('span:last').html('下拉刷新');
             $refreshLayer.children('span:first').html('↓');
         },
