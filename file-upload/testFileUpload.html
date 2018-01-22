@@ -9,16 +9,21 @@
     var i = 2;
     $(function () {
       $(".addFile").click(function () {
-        $(".lastTr").before("<tr class='fileTr'>" +
-          "<td><table>" +
-          "<caption>File" + i + "</caption>" +
-          "<tr><td>文件名:</td><td><input type='file' name='file" + i + "'></td></tr>" +
-          "<tr><td>文件描述:</td><td><textarea name='desc" + i + "' placeholder='文件描述'></textarea></td></tr>" +
-          "</table></td>" +
-          "<td><input type='button' value='删除文件' onclick='return delFile(this);'></td>" +
-          "</tr>");
+        $(".lastTr").before("" +
+          "<tr class='fileTr'>" +
+            "<td>" +
+              "<table>" +
+                "<caption>File" + i + "</caption>" +
+                "<tr><td>文件名:</td><td><input type='file' name='file" + i + "'></td></tr>" +
+                "<tr><td>文件描述:</td><td><textarea name='desc" + i + "' placeholder='文件描述'></textarea></td></tr>" +
+              "</table>" +
+            "</td>" +
+            "<td>" +
+              "<input type='button' value='删除文件' onclick='return delFile(this);'>" +
+            "</td>" +
+          "</tr>"
+        );
         i++;
-        //sortFile();
       });
     });
 
@@ -51,7 +56,7 @@
 </head>
 
 <body>
-  <h2>测试使用servlet文件上传</h2>
+  <h2>该案例是通过<em>form</em>标签测试文件上传</h2>
 
   <div>
     <form action="UploadServlet3" method="post" enctype="multipart/form-data">

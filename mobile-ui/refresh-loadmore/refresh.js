@@ -21,6 +21,8 @@ $(function() {
 
             this.on('touchstart', function(e) {
                 $(this).removeClass('refresh'); // 滑动开始时，移除移动动画
+                console.log($(this));
+
                 if ($(this).offset().top >= 0) { // 说明已经在最顶端了
                     isRefresh = true;
                     startMoveY = e.targetTouches[0].pageY; // 记录开始move时的触点（Y方向）
@@ -42,6 +44,7 @@ $(function() {
                         }
                     }
                 } else {
+                    console.log($this.offset().top);
                     if ($this.offset().top >= 0) { // 不是刷新状态时，判断是否下拉到顶部，如果是，那么进入下拉状态
                         isRefresh = true;
                         startMoveY = e.targetTouches[0].pageY; // 记录开始move时的触点（Y方向）

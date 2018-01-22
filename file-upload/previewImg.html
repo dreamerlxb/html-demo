@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+
+<head>
+    <script src="../resources/jquery/jquery-3.2.1.js"></script>
+</head>
+
+<body>
+    <div id="imgContiner">
+
+    </div>
+    <div>
+        <input type="file" name="" id="uploadPhoto" multiple accept='image/png, image/jpeg, image/jpg, image/svg, image/gif'>
+        <button onclick="uploadFile();">上传图片</button>
+    </div>
+    <script>
+        //预览图片
+        document.getElementById('uploadPhoto').addEventListener('change', changeHandler2, false);
+
+        // 预览图片 方法一
+        function changeHandler(e) {
+            var files = e.target.files;
+            console.log(files) // 这里我们能获取到所选择的文件信息，需要注意的一点是 files 是个类数组对象。
+            var imgContiner = document.getElementById('imgContiner');
+            for(var i = 0; i < files.length; i++) {
+                var item = files[i];
+                var reader = new FileReader();
+                reader.readAsDataURL(item);
+                reader.onprogress = function (e) {
+                    if (e.lengthComputable) {
+                        // 简单把进度信息打印到控制台吧
+                        console.log(e.loaded / e.total + '%')
+                    }
+                }
+                reader.onload = function (e) {
+                    var image = new Image()
+                    image.src = e.target.result
+                    imgContiner.appendChild(image)
+                }
+                reader.onerror = function (e) {
+                    console.log('there is an error!')
+                }
+            }
+        }
+
+        // 预览图片 方法二
+        function changeHandler2(e) {
+            var files = Array.from(e.target.files)
+            var imgContiner = document.getElementById('imgContiner');
+            files.forEach(function(item) {
+                var image = new Image()
+                image.src = createObjectURL(item)
+                imgContiner.appendChild(image)
+                image.onload = function() {
+                    revokeObjectURL(this.src)
+                }
+            })
+        }
+
+        function createObjectURL(file) {
+            if (window.URL) {
+                return window.URL.createObjectURL(file);
+            } else if (window.webkitURL) {
+                return window.webkitURL.createObjectURL(file);
+            } else {
+                return null
+            }
+        }
+
+        function revokeObjectURL(url) {
+            if (widnow.URL) {
+                return window.URL.revokeObjectURL(url)
+            } else {
+                return window.webkitURL.revokeObjectURL(url)
+            }
+        }
+
+        // 使用 FormData 上传图片
+        function uploadFile() {
+            var uploadPhoto = document.getElementById('uploadPhoto');
+            if (uploadPhoto.files && uploadPhoto.files.length > 0) { // 如果存在文件，那么先上传文件，在提交数据
+                var fileUploadFormData = new FormData();
+                fileUploadFormData.append('uploadFile', uploadPhoto.files[0]);
+                $.ajax({
+                    url: '${ctx}/file/fileUpLoad',
+                    type: 'POST',
+                    data: fileUploadFormData,
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    success: function (data) {
+                        console.log(data);
+                        if (data == '-1') {
+                            // 文件上传错误
+                            $.alert({
+                                label: '文件上传出错'
+                            });
+                            return;
+                        }
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>

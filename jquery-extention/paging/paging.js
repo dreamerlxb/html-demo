@@ -110,5 +110,4 @@
 	$.fn.paging = function(options) {
 		return new Paging($(this), options);
     };
-    
 })(jQuery, window, document);
