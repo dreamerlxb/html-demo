@@ -16,6 +16,12 @@
     display: block;
 }
 
+.today {
+    background: red;
+    color: white;
+    font-size: 16px;
+}
+
 
 /**
  * 设置日历顶部盒子
