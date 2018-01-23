@@ -48,7 +48,7 @@
  */
 
 .calendar .prev-month {
-    position: absolute;
+    /* position: absolute; */
     top: 12px;
     left: 0px;
     display: inline-block;
@@ -67,7 +67,7 @@
  */
 
 .calendar .next-month {
-    position: absolute;
+    /* position: absolute; */
     top: 12px;
     right: 0px;
     display: inline-block;

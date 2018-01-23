@@ -21,10 +21,12 @@
    Calendar.prototype.createHeaderHtml = function() {
         this.header.className = 'calendar-title-box';     // 设置标题盒子中的html
         this.header.innerHTML = "" +
-            "<span class='prev-month' id='prevMonth'></span>" +       
+            "<span class='prev-month' id='prevYear'></span>" +
+            "<span class='prev-month' id='prevMonth'></span>" +
             "<span class='calendar-title' id='calendarYear'> " + this.current.getFullYear() + "</span>" + // year
             "<span class='calendar-title' id='calendarMonth'>" + (this.current.getMonth() + 1) + "</span>" + // month
-            "<span id='nextMonth' class='next-month'></span>";
+            "<span id='nextMonth' class='next-month'></span>" +
+            "<span class='next-month' id='nextYear'></span>";
 
         this.container.appendChild(this.header);
         this.__bindEvent__();
@@ -85,15 +87,15 @@
         for (var i = 0; i < 5; i++) {
             _bodyHtml += "<tr>";
             for(var j = 0; j < 7; j++) {
-                tmpDate.setTime(tmpDate.getTime() + 24 * 60 * 60 * 1000);
+                //tmpDate.setTime(tmpDate.getTime() + 24 * 60 * 60 * 1000);
+                tmpDate.setDate(tmpDate.getDate() + 1);
 
                 if(now.getFullYear() === tmpDate.getFullYear() &&
-                    now.getMonth() === tmpDate.getMonth() &&
-                        now.getDate() === tmpDate.getDate() ) {
-                        _bodyHtml += "<td class='today' data-date='" + (tmpDate.getFullYear() + "-" + (tmpDate.getMonth() + 1) + "-" + tmpDate.getDate()) + "'>" + tmpDate.getDate() + "</td>";
-                    } else {
-                        _bodyHtml += "<td data-date='" + (tmpDate.getFullYear() + "-" + (tmpDate.getMonth() + 1) + "-" + tmpDate.getDate()) + "'>" + tmpDate.getDate() + "</td>";
-                    }
+                    now.getMonth() === tmpDate.getMonth() && now.getDate() === tmpDate.getDate()) {
+                    _bodyHtml += "<td class='today' data-date='" + (tmpDate.getFullYear() + "-" + (tmpDate.getMonth() + 1) + "-" + tmpDate.getDate()) + "'>" + tmpDate.getDate() + "</td>";
+                } else {
+                    _bodyHtml += "<td data-date='" + (tmpDate.getFullYear() + "-" + (tmpDate.getMonth() + 1) + "-" + tmpDate.getDate()) + "'>" + tmpDate.getDate() + "</td>";
+                }
             }
             _bodyHtml += "</tr>";
         }
@@ -129,13 +131,26 @@
    Calendar.prototype.__bindEvent__ = function() {
         var prevMonth = document.getElementById("prevMonth");
         var nextMonth = document.getElementById("nextMonth");
+
+        var prevYear = document.getElementById("prevYear");
+        var nextYear = document.getElementById("nextYear");
+
         var self = this;
         addEvent(prevMonth, 'click', function(e) {
-            self.current.setTime(self.current.getTime() - 30 * 24 * 60 * 60 * 1000);
+            self.current.setMonth(self.current.getMonth() - 1);
             self.reload();
         });
         addEvent(nextMonth, 'click', function(e) {
-            self.current.setTime(self.current.getTime() + 30 * 24 * 60 * 60 * 1000);
+            self.current.setMonth(self.current.getMonth() + 1);
+            self.reload();
+        });
+
+        addEvent(prevYear, 'click', function(e) {
+            self.current.setFullYear(self.current.getFullYear() - 1);
+            self.reload();
+        });
+        addEvent(nextYear, 'click', function(e) {
+            self.current.setFullYear(self.current.getFullYear() + 1);
             self.reload();
         });
    };
