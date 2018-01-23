@@ -12,7 +12,6 @@
 
         this.current = new Date();
 
-        this.__calData__();
         this.createHeaderHtml();
         this.createBodyHtml();
 
@@ -28,6 +27,7 @@
             "<span id='nextMonth' class='next-month'></span>";
 
         this.container.appendChild(this.header);
+        this.__bindEvent__();
    };
    
    Calendar.prototype.createBodyHtml = function() {
@@ -57,8 +57,15 @@
         
    };
 
-   Calendar.prototype.show = function() {
+    Calendar.prototype.show = function() {
+        this.__calData__();
         this.__createDayHtml__();
+    };
+
+    Calendar.prototype.reload = function() {
+        this.header.querySelector('#calendarYear').innerHTML = this.current.getFullYear();
+        this.header.querySelector('#calendarMonth').innerHTML = (this.current.getMonth() + 1)
+        this.show();
     };
 
    /**
@@ -73,15 +80,16 @@
         var tmpDate = new Date();
         tmpDate.setTime(this.calendarStart.getTime());
 
+        var now = new Date();
 
         for (var i = 0; i < 5; i++) {
             _bodyHtml += "<tr>";
             for(var j = 0; j < 7; j++) {
                 tmpDate.setTime(tmpDate.getTime() + 24 * 60 * 60 * 1000);
 
-                if(this.current.getFullYear() === tmpDate.getFullYear() &&
-                    this.current.getMonth() === tmpDate.getMonth() &&
-                    this.current.getDate() === tmpDate.getDate() ) {
+                if(now.getFullYear() === tmpDate.getFullYear() &&
+                    now.getMonth() === tmpDate.getMonth() &&
+                        now.getDate() === tmpDate.getDate() ) {
                         _bodyHtml += "<td class='today' data-date='" + (tmpDate.getFullYear() + "-" + (tmpDate.getMonth() + 1) + "-" + tmpDate.getDate()) + "'>" + tmpDate.getDate() + "</td>";
                     } else {
                         _bodyHtml += "<td data-date='" + (tmpDate.getFullYear() + "-" + (tmpDate.getMonth() + 1) + "-" + tmpDate.getDate()) + "'>" + tmpDate.getDate() + "</td>";
@@ -119,6 +127,29 @@
    };
 
    Calendar.prototype.__bindEvent__ = function() {
-
+        var prevMonth = document.getElementById("prevMonth");
+        var nextMonth = document.getElementById("nextMonth");
+        var self = this;
+        addEvent(prevMonth, 'click', function(e) {
+            self.current.setTime(self.current.getTime() - 30 * 24 * 60 * 60 * 1000);
+            self.reload();
+        });
+        addEvent(nextMonth, 'click', function(e) {
+            self.current.setTime(self.current.getTime() + 30 * 24 * 60 * 60 * 1000);
+            self.reload();
+        });
    };
 // })();
+
+/**
+ * 绑定事件
+ */
+function addEvent(dom, eType, func) {
+    if (dom.addEventListener) {  // DOM 2.0
+        dom.addEventListener(eType, func);
+    } else if (dom.attachEvent) {  // IE5+
+        dom.attachEvent('on' + eType, func);
+    } else {  // DOM 0
+        dom['on' + eType] = func;
+    }
+}

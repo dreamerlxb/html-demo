@@ -36,6 +36,12 @@
     border-bottom: 1px solid #ddd;
 }
 
+.calendar .calendar-title {
+    font-size: 18px;
+    padding: 10px;
+    cursor: pointer;
+}
+
 
 /**
  * 设置上个月的按钮图标
