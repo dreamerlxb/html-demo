@@ -5,6 +5,8 @@
         this.header = document.createElement("div");
         // 表格区 显示数据
         this.body = document.createElement("div");
+        this.body.className = 'calendar-body-box';
+
         // this.footer = document.createElement("div");
 
         this.calendarStart = new Date();
@@ -13,7 +15,7 @@
         this.current = new Date();
 
         this.createHeaderHtml();
-        this.createBodyHtml();
+        this.__createDateHtml__();
 
        // this.container.appendChild(this.footer);
    }
@@ -21,20 +23,19 @@
    Calendar.prototype.createHeaderHtml = function() {
         this.header.className = 'calendar-title-box';     // 设置标题盒子中的html
         this.header.innerHTML = "" +
-            "<span class='prev-month' id='prevYear'></span>" +
-            "<span class='prev-month' id='prevMonth'></span>" +
+            "<span class='prev-month' id='prevYear'><i class='icon iconfont icon-left2-copy'></i></span>" +
+            "<span class='prev-month' id='prevMonth'><i class='icon iconfont icon-left2zuo'></i> </span>" +
             "<span class='calendar-title' id='calendarYear'> " + this.current.getFullYear() + "</span>" + // year
             "<span class='calendar-title' id='calendarMonth'>" + (this.current.getMonth() + 1) + "</span>" + // month
-            "<span id='nextMonth' class='next-month'></span>" +
-            "<span class='next-month' id='nextYear'></span>";
+            "<span id='nextMonth' class='next-month'><i class='icon iconfont icon-right2you2'></i></span>" +
+            "<span class='next-month' id='nextYear'><i class='icon iconfont icon-right2'></i></span>";
 
         this.container.appendChild(this.header);
         this.__bindEvent__();
    };
    
-   Calendar.prototype.createBodyHtml = function() {
-        // 设置表格区的html结构 
-        this.body.className = 'calendar-body-box';    
+   Calendar.prototype.__createDateHtml__ = function() {
+        // 设置表格区的html结构   
         var _headHtml = "" +
             "<thead>" +
                 "<tr>" +
@@ -56,7 +57,6 @@
             "</table>";     // 添加到calendar div中
 
         this.container.appendChild(this.body);
-        
    };
 
     Calendar.prototype.show = function() {
@@ -69,16 +69,26 @@
         this.header.querySelector('#calendarMonth').innerHTML = (this.current.getMonth() + 1)
         this.show();
     };
+    
+    // 创建年份
+    Calendar.prototype.__createYearHtml__ = function() {
+        
+    };
+
+    // 月份
+    Calendar.prototype.__createMonthHtml__ = function() {
+        
+    };
 
    /**
     * 共5行 7列 35个数据
-    prevDays： 上月共有几天
-    currentDays： 本月有几天
+    * prevDays： 上月共有几天
+    * currentDays： 本月有几天
     */
    Calendar.prototype.__createDayHtml__ = function() {
         var _bodyHtml = "";      // 一个月最多31天，所以一个月最多占6行表格
         
-        console.log(this.calendarStart.getFullYear() + "-" + (this.calendarStart.getMonth() + 1) + "-" + this.calendarStart.getDate());
+        // console.log(this.calendarStart.getFullYear() + "-" + (this.calendarStart.getMonth() + 1) + "-" + this.calendarStart.getDate());
         var tmpDate = new Date();
         tmpDate.setTime(this.calendarStart.getTime());
 
@@ -118,14 +128,14 @@
         // 需要向前一个月借 (week1 - 1)天
         // 所以日历的开始点为上月的最后一天减去(week1 - 1)天
         this.calendarStart = new Date(lastDayOfPrevMonth.getTime() - (week1 - 1) * 24 * 60 * 60 * 1000);
-        console.log(this.calendarStart);
+        // console.log(this.calendarStart);
 
         // 当前月最后一天的星期
         var week2 = lastDayOfCurrentMonth.getDay();
         // 需要向下一个月借 (7 - week2) 天
         // 所以日历的结束点为下月的第一天加上(7 - week2)天
         this.calendarEnd = new Date(firstDayOfNextMonth.getTime() + (7 - week2) * 24 * 60 * 60 * 1000);
-        console.log(this.calendarEnd);
+        // console.log(this.calendarEnd);
    };
 
    Calendar.prototype.__bindEvent__ = function() {
