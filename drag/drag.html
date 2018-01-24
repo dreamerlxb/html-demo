@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>拖放示例-文本</title>
+</head>
+<style>
+    .src {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .dropabled {
+        flex: 1;
+    }
+
+    .txt {
+        color: green;
+    }
+
+    .img {
+        width: 60px;
+        height: 60px;
+        border: 1px solid gray;
+    }
+
+    .target {
+        text-align: center;
+        border: 1px solid gray;
+        color: red;
+    }
+
+    .target ul li {
+        cursor: row-resize;
+    }
+
+    #list ul li {
+        cursor: move;
+    }
+</style>
+
+<body>
+    <div class="src">
+        <div id="list">
+            <ul>
+                <li draggable="true" ondragstart="handle_start();" ondrag="handle_drag();" ondragend="handle_end();">Test-1</li>
+                <li draggable="true" ondragstart="handle_start();" ondrag="handle_drag();" ondragend="handle_end();">Test-2</li>
+                <li draggable="true" ondragstart="handle_start();" ondrag="handle_drag();" ondragend="handle_end();">Test-3</li>
+                <li draggable="true" ondragstart="handle_start();" ondrag="handle_drag();" ondragend="handle_end();">Test-4</li>
+                <li draggable="true" ondragstart="handle_start();" ondrag="handle_drag();" ondragend="handle_end();">Test-5</li>
+                <li draggable="true" ondragstart="handle_start();" ondrag="handle_drag();" ondragend="handle_end();">Test-6</li>
+                <li draggable="true" ondragstart="handle_start();" ondrag="handle_drag();" ondragend="handle_end();">Test-7</li>
+                <li draggable="true" ondragstart="handle_start();" ondrag="handle_drag();" ondragend="handle_end();">Test-8</li>
+                <li draggable="true" ondragstart="handle_start();" ondrag="handle_drag();" ondragend="handle_end();">Test-9</li>
+                <li draggable="true" ondragstart="handle_start();" ondrag="handle_drag();" ondragend="handle_end();">Test-10</li>
+                <li draggable="true" ondragstart="handle_start();" ondrag="handle_drag();" ondragend="handle_end();">Test-11</li>
+                <li draggable="true" ondragstart="handle_start();" ondrag="handle_drag();" ondragend="handle_end();">Test-12</li>
+                <li draggable="true" ondragstart="handle_start();" ondrag="handle_drag();" ondragend="handle_end();">Test-13</li>
+                <li draggable="true" ondragstart="handle_start();" ondrag="handle_drag();" ondragend="handle_end();">Test-14</li>
+                <li draggable="true" ondragstart="handle_start();" ondrag="handle_drag();" ondragend="handle_end();">test-15</li>
+            </ul>
+        </div>
+        <div id='target' class="dropabled target">
+            Drop Here
+            <ul id="dropTarget"></ul>
+        </div>
+    </div>
+    <script>
+        var sourceTarget;
+        // 处理拖拽移动事件
+        function handle_start() {
+            sourceTarget = event.target;
+            console.log('dragstart-在元素开始被拖动时候触发', event)
+        }
+
+        function handle_drag() {
+            // console.log('drag-在元素被拖动时候反复触发', event)
+        }
+
+        function handle_end() {
+            sourceTarget = null;
+            console.log('dragend-在拖动操作完成时触发')
+        }
+
+        // 处理移动到目标容器后的事件
+        var target = document.getElementById('target')
+        var dropTarget = target.querySelector('#dropTarget');
+
+        target.ondragenter = handle_enter;
+        target.ondragover = handle_over;
+        target.ondragleave = handle_leave;
+        target.ondrop = handle_drop;
+
+        var destTarget;
+
+        function handle_enter(e) {
+            console.log('handle_enter-当元素进入目的地时触发')
+            // 阻止浏览器默认行为
+            e.preventDefault()
+        }
+
+        function handle_over(e) {
+            console.log('handle_over-当元素在目的地时触发', e)
+            destTarget = e.target;
+
+            // 阻止浏览器默认行为
+            e.preventDefault()
+        }
+
+        function handle_leave(e) {
+            destTarget = null;
+            console.log('handle_leave-当元素离开目的地时触发', e)
+            // 阻止浏览器默认行为
+            // e.preventDefault()
+        }
+
+        function handle_drop(e) {
+            console.log('handle_drop-当元素在目的地放下时触发', e)
+
+            console.log('==================', destTarget.tagName);
+
+            if (destTarget.tagName == 'LI') { // 在ul内拖拽排序
+                dropTarget.insertBefore(sourceTarget, destTarget);
+            } else {
+                dropTarget.append(sourceTarget);
+            }
+
+            e.preventDefault()
+        }
+    </script>
+</body>
+
+</html>
