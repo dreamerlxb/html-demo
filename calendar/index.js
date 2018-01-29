@@ -66,7 +66,7 @@
 
     Calendar.prototype.reload = function() {
         this.header.querySelector('#calendarYear').innerHTML = this.current.getFullYear();
-        this.header.querySelector('#calendarMonth').innerHTML = (this.current.getMonth() + 1)
+        this.header.querySelector('#calendarMonth').innerHTML = this.current.getMonth() + 1;
         this.show();
     };
     
@@ -146,20 +146,28 @@
         var nextYear = document.getElementById("nextYear");
 
         var self = this;
+        // 上月
         addEvent(prevMonth, 'click', function(e) {
+            self.current.setDate(1);
             self.current.setMonth(self.current.getMonth() - 1);
             self.reload();
         });
+        // 下月
         addEvent(nextMonth, 'click', function(e) {
+            self.current.setDate(1);
             self.current.setMonth(self.current.getMonth() + 1);
             self.reload();
         });
 
         addEvent(prevYear, 'click', function(e) {
+            self.current.setDate(1);
+            self.current.setMonth(0);
             self.current.setFullYear(self.current.getFullYear() - 1);
             self.reload();
         });
         addEvent(nextYear, 'click', function(e) {
+            self.current.setDate(1);
+            self.current.setMonth(0);
             self.current.setFullYear(self.current.getFullYear() + 1);
             self.reload();
         });

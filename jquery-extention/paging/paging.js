@@ -36,19 +36,19 @@
 			// 总页数 <= 7的时候
 			if(total <= 7) {
 				for(var i = 1; i <= total; i++) {
-					content += '<li class="page-item '+ (i == current ? 'active' : '') + '">' +
+					content += '<li class="page-item '+ (i === current ? 'active' : '') + '">' +
                                     '<a class="page-link">' + i + '</a>' +
                                 '</li>';
 				}
 			} else { // 总页数 > 7
 				if(current <= 3) { // 当前页 <= 3
 					for(var i = 1; i <= 7; i++) {
-						content += '<li class="page-item '+ (i == current ? 'active' : '') + '">' +
+						content += '<li class="page-item '+ (i === current ? 'active' : '') + '">' +
                                         '<a class="page-link">' + i + '</a>' +
                                     '</li>';
 					}
 				} else { // 当前页 > 3
-					for(var i = current - 3; i <= current-1; i++) {
+					for(var i = current - 3; i <= current - 1; i++) {
 						content += '<li class="page-item">' +
                                         '<a class="page-link">' + i + '</a>' +
                                     '</li>';
@@ -65,7 +65,7 @@
 					}
 				}
 			}
-			content += '<li class="page-item '+ (current == total ? 'disabled': '')+'">' +
+			content += '<li class="page-item '+ (current === total ? 'disabled': '')+'">' +
 							'<a class="page-link">下一页</a>' +
 						'</li>';
 			content += '</ul>  </nav>';
